@@ -26,6 +26,9 @@ jobs:
             node-version: "18.x"
 
     steps:
+      - name: set git core.autocrlf to 'input'
+        run: git config --global core.autocrlf input
+
       - uses: actions/checkout@v3
 
       - name: with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
