@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - [Java] Enabled reproducible builds
+- Use GitHub Actions for releases
 
 ### Deprecated
 
@@ -114,7 +115,3 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 [2.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v1.0.1...gherkin-utils/v2.0.0
 [1.0.1]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v1.0.0...gherkin-utils/v1.0.1
 [1.0.0]: https://github.com/cucumber/cucumber/releases/tag/gherkin-utils/v1.0.0
-[aslakhellesoy]:    https://github.com/aslakhellesoy
-[cbliard]:          https://github.com/cbliard
-[vincent-psarga]:   https://github.com/vincent-psarga
-
