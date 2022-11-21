@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [8.0.2] - 2022-11-21
 ### Added
 
 ### Changed
@@ -98,7 +100,8 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v8.0.1...main
+[Unreleased]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v8.0.2...main
+[8.0.2]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v8.0.1...main
 [8.0.1]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v8.0.0...gherkin-utils/v8.0.1
 [8.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v7.0.0...gherkin-utils/v8.0.0
 [7.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v6.0.0...gherkin-utils/v7.0.0
