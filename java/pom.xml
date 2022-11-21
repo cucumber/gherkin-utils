@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>gherkin-utils</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Gherkin Utils</name>
   <description>Gherkin utils for doing things such as walking a Gherkin tree or pretty printing Gherkin files.
@@ -18,7 +18,7 @@
 
   <properties>
     <project.Automatic-Module-Name>io.cucumber.gherkin.utils</project.Automatic-Module-Name>
-    <project.build.outputTimestamp>1669049418</project.build.outputTimestamp>
+    <project.build.outputTimestamp>1669049429</project.build.outputTimestamp>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
   </properties>
@@ -27,7 +27,7 @@
     <connection>scm:git:git://github.com/cucumber/common.git</connection>
     <developerConnection>scm:git:git@github.com:cucumber/common.git</developerConnection>
     <url>git://github.com/cucumber/common.git</url>
-    <tag>v8.0.2</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencies>
