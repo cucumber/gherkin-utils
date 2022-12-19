@@ -34,7 +34,7 @@
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>gherkin</artifactId>
-      <version>[24.1.0,25.0.3)</version>
+      <version>[24.1.0,26.0.2)</version>
     </dependency>
 
     <dependency>
