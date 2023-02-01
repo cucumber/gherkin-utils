@@ -30,6 +30,7 @@ export function walkGherkinDocument<Acc>(
       acc = walkStepContainer(child.scenario, acc)
     } else if (child.rule) {
       acc = walkTags(child.rule.tags || [], acc)
+      acc = walkComments(popCommentsUntil(child.rule.location), acc)
       acc = h.rule(child.rule, acc)
       for (const ruleChild of child.rule.children) {
         if (ruleChild.background) {
@@ -80,8 +81,8 @@ export function walkGherkinDocument<Acc>(
     stepContainer: messages.Scenario | messages.Background,
     acc: Acc
   ): Acc {
+    acc = walkComments(popCommentsUntil(stepContainer.location), acc)
     const scenario: messages.Scenario = 'tags' in stepContainer ? stepContainer : null
-    acc = walkComments(popCommentsUntil(scenario?.location), acc)
     acc = walkTags(scenario?.tags || [], acc)
     acc = scenario
       ? h.scenario(scenario, acc)
@@ -90,6 +91,7 @@ export function walkGherkinDocument<Acc>(
 
     if (scenario) {
       for (const examples of scenario.examples || []) {
+        acc = walkComments(popCommentsUntil(examples.location), acc)
         acc = walkTags(examples.tags || [], acc)
         acc = h.examples(examples, acc)
         if (examples.tableHeader) {
