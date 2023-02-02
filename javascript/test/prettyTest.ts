@@ -174,6 +174,23 @@ Feature: hello
 `)
   })
 
+  it('renders block comments', () => {
+    checkGherkinToAstToGherkin(`Feature: block comments
+
+  Background: Archimedes
+    Given a lever long enough
+    And a fulcrum on which to place it
+
+  # Scenario: move the world
+  #   When I apply force to the lever
+  #   Then I shall move the world
+
+  Scenario: nice cup of tea
+    When I brew some tea
+    Then I should have a cozy time
+`)
+  })
+
   it('renders descriptions when set', () => {
     checkGherkinToAstToGherkin(`Feature: hello
   So this is a feature
