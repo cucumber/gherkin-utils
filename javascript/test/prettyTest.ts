@@ -180,7 +180,6 @@ Feature: hello
   Background: Archimedes
     Given a lever long enough
     And a fulcrum on which to place it
-
   # Scenario: move the world
   #   When I apply force to the lever
   #   Then I shall move the world
