@@ -109,7 +109,8 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
 
     @Override
     public Result handleStep(Step step, Result result) {
-        appendComments(step.getLocation(), result, comments, scenarioLevel + 1);
+        appendComments(step.getLocation(), result, comments, scenarioLevel + 1, true);
+        appendComments(step.getLocation(), result, comments, scenarioLevel + 1, false);
         return result.append(stepPrefix(scenarioLevel + 1, syntax))
                 .append(step.getKeyword())
                 .append(step.getText())
@@ -140,11 +141,13 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
             Scenario stepContainer,
             Syntax syntax,
             int level) {
+        appendComments(stepContainer.getLocation(), result, comments, level, true);
+        result.append(level == 0 ? "" : "\n");
+        appendComments(stepContainer.getLocation(), result, comments, level, false);
+        
         List<Tag> tags = stepContainer.getTags() != null ? stepContainer.getTags() : Collections.emptyList();
         int stepCount = stepContainer.getSteps() != null ? stepContainer.getSteps().size() : 0;
         String description = prettyDescription(stepContainer.getDescription(), syntax);
-        result.append(level == 0 ? "" : "\n");
-        appendComments(stepContainer.getLocation(), result, comments, level);
         appendTags(result, tags, syntax, level, comments);
         return result
                 .append(keywordPrefix(level, syntax))
@@ -160,8 +163,11 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
             Feature stepContainer,
             Syntax syntax,
             int level) {
+        appendComments(stepContainer.getLocation(), result, comments, level, true);
+        result.append(level == 0 ? "" : "\n");
+        appendComments(stepContainer.getLocation(), result, comments, level, false);
+        
         List<Tag> tags = stepContainer.getTags() != null ? stepContainer.getTags() : Collections.emptyList();
-        appendComments(stepContainer.getLocation(), result, comments, level);
         appendTags(result, tags, syntax, level, comments);
         return result.append(level == 0 ? "" : "\n")
                 .append(keywordPrefix(level, syntax))
@@ -178,10 +184,12 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
             Syntax syntax,
             int level
     ) {
+        appendComments(stepContainer.getLocation(), result, comments, level, true);
+        result.append(level == 0 ? "" : "\n");
+        appendComments(stepContainer.getLocation(), result, comments, level, false);
+        
         List<Tag> tags = stepContainer.getTags() != null ? stepContainer.getTags() : Collections.emptyList();
         String description = prettyDescription(stepContainer.getDescription(), syntax);
-        appendComments(stepContainer.getLocation(), result, comments, level);
-        result.append(level == 0 ? "" : "\n");
         appendTags(result, tags, syntax, level, comments);
         return result
                 .append(keywordPrefix(level, syntax))
@@ -198,10 +206,12 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
             Syntax syntax,
             int level
     ) {
+        appendComments(stepContainer.getLocation(), result, comments, level, true);
+        result.append(level == 0 ? "" : "\n");
+        appendComments(stepContainer.getLocation(), result, comments, level, false);
+        
         List<Tag> tags = stepContainer.getTags() != null ? stepContainer.getTags() : Collections.emptyList();
         String description = prettyDescription(stepContainer.getDescription(), syntax);
-        result.append(level == 0 ? "" : "\n");
-        appendComments(stepContainer.getLocation(), result, comments, level);
         appendTags(result, tags, syntax, level, comments);
         return result
                 .append(keywordPrefix(level, syntax))
@@ -218,10 +228,13 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
             Syntax syntax,
             int level
     ) {
+        appendComments(stepContainer.getLocation(), result, comments, level, true);
+        result.append(level == 0 ? "" : "\n");
+        appendComments(stepContainer.getLocation(), result, comments, level, false);
+        
         int stepCount = stepContainer.getSteps() != null ? stepContainer.getSteps().size() : 0;
         String description = prettyDescription(stepContainer.getDescription(), syntax);
-        appendComments(stepContainer.getLocation(), result, comments, level);
-        return result.append(level == 0 ? "" : "\n")
+        return result
                 .append(keywordPrefix(level, syntax))
                 .append(stepContainer.getKeyword())
                 .append(": ").append(stepContainer.getName())
@@ -245,7 +258,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         }
         String prefix = syntax == Syntax.gherkin ? repeatString(level, "  ") : "";
         String tagQuote = syntax == Syntax.gherkin ? "" : "`";
-        appendComments(tags.get(0).getLocation(), result, comments, level);
+        appendComments(tags.get(0).getLocation(), result, comments, level, false);
         return result
                 .append(prefix)
                 .append(tags.stream()
@@ -334,14 +347,19 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         return result;
     }
 
-    private List<Comment> popComments(Location currentLocation, List<Comment> comments) {
+    private List<Comment> popComments(Location currentLocation, List<Comment> comments, int level, boolean previousBlock) {
         List<Comment> res = new ArrayList<>();
         Iterator<Comment> iter = comments.iterator();
         while (iter.hasNext()) {
             Comment comment = iter.next();
             if (currentLocation.getLine() > comment.getLocation().getLine()) {
-                res.add(comment);
-                iter.remove();
+            	if (previousBlock && comment.getText().startsWith(repeatString(level, "  "))) {
+            		// We skip this comment as we are appending previous block comments, and this comment has enough indents
+            		// to be attached to the current block
+            	} else {
+            		res.add(comment);
+            		iter.remove();
+            	}
             }
         }
         return res;
@@ -356,7 +374,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
             List<Comment> comments) {
         int actualLevel = syntax == Syntax.markdown ? 1 : level;
 
-        appendComments(row.getLocation(), result, comments, actualLevel);
+        appendComments(row.getLocation(), result, comments, actualLevel, false);
 
         result.append(repeatString(actualLevel, "  "))
                 .append("| ");
@@ -374,10 +392,14 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         return result.append(" |\n");
     }
 
-    private void appendComments(Location location, Result result, List<Comment> comments, int actualLevel) {
-        for (Comment nextComment : popComments(location, comments)) {
+    private Result appendComments(Location location, Result result, List<Comment> comments, int level, boolean previousBlock) {
+    	int actualLevel = previousBlock ? level - 1 : level;
+    	
+        for (Comment nextComment : popComments(location, comments, level, previousBlock)) {
             appendComment(actualLevel, result, nextComment);
         }
+        
+        return result;
     }
 
     private void appendComment(int actualLevel, Result result, Comment nextComment) {

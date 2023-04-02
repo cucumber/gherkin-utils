@@ -316,6 +316,120 @@ public class PrettyTest {
                 prettyPrint(gherkinDocument, Syntax.gherkin));
     }
 
+    @Test
+    void commentBeforeExamples() {
+        GherkinDocument gherkinDocument = parse("Feature: Comment before an Examples\n" +
+                "\n" +
+                "  Scenario Outline: with examples\n" +
+                "    Given the <value> minimalism\n" +
+                "    # then something happens\n" +
+                "\n" +
+                "    Examples:\n" +
+                "    | value |\n" +
+                "    | 1     |\n" +
+                "    | 2     |\n");
+        assertEquals("Feature: Comment before an Examples\n" +
+                        "\n" +
+                        "  Scenario Outline: with examples\n" +
+                        "    Given the <value> minimalism\n" +
+                        "\n" +
+                        "    # then something happens\n" +
+                        "    Examples:\n" +
+                        "      | value |\n" +
+                        "      | 1     |\n" +
+                        "      | 2     |\n",
+                prettyPrint(gherkinDocument, Syntax.gherkin));
+    }
+
+    // This demonstrate some limitations like:
+    // - Comments between a `@tag` and a `Scenario:` are pushed before the @tag
+    // - Dangling comments (e.g. with intermediate EOL) are compacted next to some block
+    // - Contiguous `###[...]` are turned into `# ##[...]`
+    // - Comments after an moreIndented block are moved as indent of the following lessIndented block
+    @Test
+    void commentsBeforeAndAfterKeywords(){
+        GherkinDocument gherkinDocument = parse("# before Feature\n" +
+                "Feature: Comments everywhere\n" +
+                "# after Feature\n" +
+                "  # after Feature indent\n" +
+                "\n" +
+                "    # before Background indent\n" +
+                "  # before Background\n" +
+                "  Background: foo\n" +
+                "  # after Background\n" +
+                "\n" +
+                "  # before Scenario\n" +
+                "  Scenario: foo\n" +
+                "  # after Scenario\n" +
+                "    # before Given\n" +
+                "    Given nothing\n" +
+                "    # after Given\n" +
+                "\n" +
+                "  #####\n" +
+                "  # And spaced out\n" +
+                "  ####\n" +
+                "\n" +
+                "  # before Tag\n" +
+                "  @foo\n" +
+                "  # after Tag\n" +
+                "  Scenario: Foo\n" +
+                "    Given another\n" +
+                "\n" +
+                "  # before Rule\n" +
+                "  Rule:\n" +
+                "  # after Rule\n" +
+                "    # after Rule indent\n" +
+                "\n" +
+                "    # background comment\n" +
+                "    Background: foo\n" +
+                "\n" +
+                "    # middling comment\n" +
+                "\n" +
+                "    # another middling comment\n" +
+                "\n" +
+                "    # scenario comment\n" +
+                "    Scenario: foo\n");
+        assertEquals( "# before Feature\n" +
+                        "Feature: Comments everywhere\n" +
+                        "# after Feature\n" +
+                        "\n" +
+                        "  # after Feature indent\n" +
+                        "  # before Background indent\n" +
+                        "  # before Background\n" +
+                        "  Background: foo\n" +
+                        "\n" +
+                        "  # after Background\n" +
+                        "  # before Scenario\n" +
+                        "  Scenario: foo\n" +
+                        "  # after Scenario\n" +
+                        "    # before Given\n" +
+                        "    Given nothing\n" +
+                        "\n" +
+                        "  # after Given\n" +
+                        "  # ####\n" +
+                        "  # And spaced out\n" +
+                        "  # ###\n" +
+                        "  # before Tag\n" +
+                        "  # after Tag\n" +
+                        "  @foo\n" +
+                        "  Scenario: Foo\n" +
+                        "    Given another\n" +
+                        "\n" +
+                        "  # before Rule\n" +
+                        "  Rule: \n" +
+                        "  # after Rule\n" +
+                        "\n" +
+                        "    # after Rule indent\n" +
+                        "    # background comment\n" +
+                        "    Background: foo\n" +
+                        "\n" +
+                        "    # middling comment\n" +
+                        "    # another middling comment\n" +
+                        "    # scenario comment\n" +
+                        "    Scenario: foo\n",
+                prettyPrint(gherkinDocument, Syntax.gherkin));
+    }
+
     private GherkinDocument parse(String gherkin) {
         GherkinParser parser = GherkinParser
                 .builder()
