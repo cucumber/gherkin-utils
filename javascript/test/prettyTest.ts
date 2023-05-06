@@ -209,8 +209,7 @@ Feature: hello
 `)
   })
 
-  // TODO: locate test data outside of monorepo?
-  const featureFiles = fg.sync(`${__dirname}/../../../gherkin/testdata/good/*.feature`)
+  const featureFiles = fg.sync(`${__dirname}/../../testdata/good/*.feature`)
   for (const featureFile of featureFiles) {
     const relativePath = path.relative(__dirname, featureFile)
     it(`renders ${relativePath}`, () => {
