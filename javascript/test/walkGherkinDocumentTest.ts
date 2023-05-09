@@ -5,17 +5,22 @@ import { GherkinDocumentHandlers, walkGherkinDocument } from '../src'
 describe('walkGherkinDocument', () => {
   it('traverses depth first', () => {
     const gherkinDocument = parse(`
+      #1
       @A
       Feature: B
+        #2
         Background: C
 
+        #3
         @D
         Scenario: E
+          #4
           Given F
 
         Scenario: G
           Given H
 
+        #5
         Rule: I
           @J
           Scenario: K
@@ -23,6 +28,7 @@ describe('walkGherkinDocument', () => {
               | M | N |
               | O | P |
 
+            #6
             Examples: Q
 
           Scenario: R
@@ -37,7 +43,7 @@ describe('walkGherkinDocument', () => {
 `)
 
     const handlers: GherkinDocumentHandlers<string[]> = {
-      comment: (comment, acc) => acc,
+      comment: (comment, acc) => acc.concat(comment.text.trim()),
       dataTable: (dataTable, acc) => acc,
       docString: (docString, acc) => acc.concat(docString.content),
       tableCell: (tableCell, acc) => acc.concat(tableCell.value),
@@ -52,6 +58,6 @@ describe('walkGherkinDocument', () => {
     }
 
     const names = walkGherkinDocument<string[]>(gherkinDocument, [], handlers)
-    assert.deepEqual(names, 'A B C D E F G H I J K L M N O P Q R S T U V W'.split(' '))
+    assert.deepEqual(names, '#1 A B #2 C #3 D E #4 F G H #5 I J K L M N O P #6 Q R S T U V W'.split(' '))
   })
 })

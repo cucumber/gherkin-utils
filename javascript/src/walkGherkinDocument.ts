@@ -14,9 +14,11 @@ export function walkGherkinDocument<Acc>(
   initialValue: Acc,
   handlers: Partial<GherkinDocumentHandlers<Acc>>
 ): Acc {
+  const commentsStack = gherkinDocument.comments.slice()
   let acc = initialValue
   const h: GherkinDocumentHandlers<Acc> = { ...makeDefaultHandlers<Acc>(), ...handlers }
   const feature = gherkinDocument.feature
+  acc = walkComments(popCommentsUntil(feature?.location), acc)
   if (!feature) return acc
   acc = walkTags(feature.tags || [], acc)
   acc = h.feature(feature, acc)
@@ -28,6 +30,7 @@ export function walkGherkinDocument<Acc>(
       acc = walkStepContainer(child.scenario, acc)
     } else if (child.rule) {
       acc = walkTags(child.rule.tags || [], acc)
+      acc = walkComments(popCommentsUntil(child.rule.location), acc)
       acc = h.rule(child.rule, acc)
       for (const ruleChild of child.rule.children) {
         if (ruleChild.background) {
@@ -40,6 +43,10 @@ export function walkGherkinDocument<Acc>(
   }
   return acc
 
+  function walkComments(comments: readonly messages.Comment[], acc: Acc): Acc {
+    return comments.reduce((acc, comment) => h.comment(comment, acc), acc)
+  }
+
   function walkTags(tags: readonly messages.Tag[], acc: Acc): Acc {
     return tags.reduce((acc, tag) => h.tag(tag, acc), acc)
   }
@@ -49,6 +56,7 @@ export function walkGherkinDocument<Acc>(
   }
 
   function walkStep(step: messages.Step, acc: Acc): Acc {
+    acc = walkComments(popCommentsUntil(step.location), acc)
     acc = h.step(step, acc)
     if (step.docString) {
       acc = h.docString(step.docString, acc)
@@ -73,6 +81,7 @@ export function walkGherkinDocument<Acc>(
     stepContainer: messages.Scenario | messages.Background,
     acc: Acc
   ): Acc {
+    acc = walkComments(popCommentsUntil(stepContainer.location), acc)
     const scenario: messages.Scenario = 'tags' in stepContainer ? stepContainer : null
     acc = walkTags(scenario?.tags || [], acc)
     acc = scenario
@@ -82,6 +91,7 @@ export function walkGherkinDocument<Acc>(
 
     if (scenario) {
       for (const examples of scenario.examples || []) {
+        acc = walkComments(popCommentsUntil(examples.location), acc)
         acc = walkTags(examples.tags || [], acc)
         acc = h.examples(examples, acc)
         if (examples.tableHeader) {
@@ -92,7 +102,20 @@ export function walkGherkinDocument<Acc>(
     }
     return acc
   }
+
+  function popCommentsUntil(location?: messages.Location): readonly messages.Comment[] {
+    let count = 0
+    for (const comment of commentsStack) {
+      if (location === undefined || comment.location.line < location.line) {
+        count++
+      } else {
+        break
+      }
+    }
+    return commentsStack.splice(0, count)
+  }
 }
+
 
 function makeDefaultHandlers<Acc>() {
   const defaultHandlers: GherkinDocumentHandlers<Acc> = {

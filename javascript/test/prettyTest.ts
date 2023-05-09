@@ -149,18 +149,44 @@ Feature: hello
     })
   })
 
-  xit('renders comments', () => {
+  it('renders comments', () => {
     checkGherkinToAstToGherkin(`# one
+# two
 Feature: hello
+  # three
+  # four
 
   Scenario: one
-    # two
+    # five
+    # six
     Given a doc string:
       """
       a
       \\"\\"\\"
       b
       """
+`)
+  })
+
+  it('renders just comments', () => {
+    checkGherkinToAstToGherkin(`# one
+# two
+`)
+  })
+
+  it('renders block comments', () => {
+    checkGherkinToAstToGherkin(`Feature: block comments
+
+  Background: Archimedes
+    Given a lever long enough
+    And a fulcrum on which to place it
+  # Scenario: move the world
+  #   When I apply force to the lever
+  #   Then I shall move the world
+
+  Scenario: nice cup of tea
+    When I brew some tea
+    Then I should have a cozy time
 `)
   })
 
@@ -183,7 +209,7 @@ Feature: hello
 `)
   })
 
-  const featureFiles = fg.sync(`${__dirname}/../../../gherkin/testdata/good/*.feature`)
+  const featureFiles = fg.sync(`${__dirname}/../../testdata/good/*.feature`)
   for (const featureFile of featureFiles) {
     const relativePath = path.relative(__dirname, featureFile)
     it(`renders ${relativePath}`, () => {
