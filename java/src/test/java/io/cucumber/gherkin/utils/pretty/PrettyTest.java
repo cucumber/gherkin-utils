@@ -381,7 +381,7 @@ public class PrettyTest {
                 "    # after Rule indent\n" +
                 "\n" +
                 "    # background comment\n" +
-                "    Background: foo\n" +
+                "    Background: \n" +
                 "\n" +
                 "    # middling comment\n" +
                 "\n" +
@@ -416,12 +416,12 @@ public class PrettyTest {
                         "    Given another\n" +
                         "\n" +
                         "  # before Rule\n" +
-                        "  Rule: \n" +
+                        "  Rule:\n" +
                         "  # after Rule\n" +
                         "\n" +
                         "    # after Rule indent\n" +
                         "    # background comment\n" +
-                        "    Background: foo\n" +
+                        "    Background:\n" +
                         "\n" +
                         "    # middling comment\n" +
                         "    # another middling comment\n" +

@@ -136,6 +136,14 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         return "en".equals(language) ? "" : String.format("# language: %s\n", language);
     }
 
+    private String semiColumnAndName(String name) {
+    	if (name == null || name.isEmpty()) {
+    		return ":";
+    	}
+    	
+		return ": " + name;
+	}
+
     private Result appendScenario(
             Result result,
             Scenario stepContainer,
@@ -152,8 +160,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         return result
                 .append(keywordPrefix(level, syntax))
                 .append(stepContainer.getKeyword())
-                .append(": ")
-                .append(stepContainer.getName())
+                .append(semiColumnAndName(stepContainer.getName()))
                 .append("\n").append(description)
                 .append(!"".equals(description.trim()) && stepCount > 0 ? "\n" : "");
     }
@@ -172,13 +179,12 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         return result.append(level == 0 ? "" : "\n")
                 .append(keywordPrefix(level, syntax))
                 .append(stepContainer.getKeyword())
-                .append(": ")
-                .append(stepContainer.getName())
+                .append(semiColumnAndName(stepContainer.getName()))
                 .append("\n")
                 .append(prettyDescription(stepContainer.getDescription(), syntax));
     }
 
-    private Result appendRule(
+	private Result appendRule(
             Result result,
             Rule stepContainer,
             Syntax syntax,
@@ -194,8 +200,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         return result
                 .append(keywordPrefix(level, syntax))
                 .append(stepContainer.getKeyword())
-                .append(": ")
-                .append(stepContainer.getName())
+                .append(semiColumnAndName(stepContainer.getName()))
                 .append("\n")
                 .append(description);
     }
@@ -216,8 +221,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         return result
                 .append(keywordPrefix(level, syntax))
                 .append(stepContainer.getKeyword())
-                .append(stepContainer.getName() != null && !stepContainer.getName().isEmpty() ? ": " : ":")
-                .append(stepContainer.getName())
+                .append(semiColumnAndName(stepContainer.getName()))
                 .append("\n")
                 .append(description);
     }
@@ -237,7 +241,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         return result
                 .append(keywordPrefix(level, syntax))
                 .append(stepContainer.getKeyword())
-                .append(": ").append(stepContainer.getName())
+                .append(semiColumnAndName(stepContainer.getName()))
                 .append("\n").append(description)
                 .append(!"".equals(description.trim()) && stepCount > 0 ? "\n" : "");
     }
