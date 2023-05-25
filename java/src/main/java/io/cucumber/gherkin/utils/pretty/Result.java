@@ -25,4 +25,9 @@ class Result implements Accumulator {
     public String toString() {
         return builder.toString();
     }
+
+	public boolean endsWithEol() {
+		int length = builder.length();
+		return length >= 1 && builder.charAt(length - 1) == '\n';
+	}
 }
