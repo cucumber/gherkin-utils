@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - [Java] Improve prettyPrint of comments
 
+## [8.0.3] - 2023-05-11
+### Fixed
+- Walk comments in `walkGherkinDocument`
+- Pretty print comments in `pretty`
+
 ## [8.0.2] - 2022-11-21
 ### Added
 
@@ -102,21 +107,22 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v8.0.2...main
-[8.0.2]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v8.0.1...main
-[8.0.1]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v8.0.0...gherkin-utils/v8.0.1
-[8.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v7.0.0...gherkin-utils/v8.0.0
-[7.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v6.0.0...gherkin-utils/v7.0.0
-[6.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v5.1.0...gherkin-utils/v6.0.0
-[5.1.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v5.0.2...gherkin-utils/v5.1.0
-[5.0.2]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v5.0.1...gherkin-utils/v5.0.2
-[5.0.1]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v5.0.0...gherkin-utils/v5.0.1
-[5.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v4.0.0...gherkin-utils/v5.0.0
-[4.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v3.0.0...gherkin-utils/v4.0.0
-[3.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v2.1.1...gherkin-utils/v3.0.0
-[2.1.1]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v2.1.0...gherkin-utils/v2.1.1
-[2.1.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v2.0.1...gherkin-utils/v2.1.0
-[2.0.1]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v2.0.0...gherkin-utils/v2.0.1
-[2.0.0]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v1.0.1...gherkin-utils/v2.0.0
-[1.0.1]: https://github.com/cucumber/cucumber/compare/gherkin-utils/v1.0.0...gherkin-utils/v1.0.1
-[1.0.0]: https://github.com/cucumber/cucumber/releases/tag/gherkin-utils/v1.0.0
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v8.0.3...main
+[8.0.3]: https://github.com/cucumber/gherkin-utils/compare/v8.0.2...main
+[8.0.2]: https://github.com/cucumber/gherkin-utils/compare/v8.0.1...main
+[8.0.1]: https://github.com/cucumber/gherkin-utils/compare/v8.0.0...v8.0.1
+[8.0.0]: https://github.com/cucumber/gherkin-utils/compare/v7.0.0...v8.0.0
+[7.0.0]: https://github.com/cucumber/gherkin-utils/compare/v6.0.0...v7.0.0
+[6.0.0]: https://github.com/cucumber/gherkin-utils/compare/v5.1.0...v6.0.0
+[5.1.0]: https://github.com/cucumber/gherkin-utils/compare/v5.0.2...v5.1.0
+[5.0.2]: https://github.com/cucumber/gherkin-utils/compare/v5.0.1...v5.0.2
+[5.0.1]: https://github.com/cucumber/gherkin-utils/compare/v5.0.0...v5.0.1
+[5.0.0]: https://github.com/cucumber/gherkin-utils/compare/v4.0.0...v5.0.0
+[4.0.0]: https://github.com/cucumber/gherkin-utils/compare/v3.0.0...v4.0.0
+[3.0.0]: https://github.com/cucumber/gherkin-utils/compare/v2.1.1...v3.0.0
+[2.1.1]: https://github.com/cucumber/gherkin-utils/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/cucumber/gherkin-utils/compare/v2.0.1...v2.1.0
+[2.0.1]: https://github.com/cucumber/gherkin-utils/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/cucumber/gherkin-utils/compare/v1.0.1...v2.0.0
+[1.0.1]: https://github.com/cucumber/gherkin-utils/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/cucumber/gherkin-utils/compare/v1.0.0
