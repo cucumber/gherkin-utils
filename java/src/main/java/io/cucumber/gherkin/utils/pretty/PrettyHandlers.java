@@ -184,7 +184,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
                 .append(prettyDescription(stepContainer.getDescription(), syntax));
     }
 
-	private Result appendRule(
+    private Result appendRule(
             Result result,
             Rule stepContainer,
             Syntax syntax,
