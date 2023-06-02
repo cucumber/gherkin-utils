@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+### Changed
+- Upgrade to `@cucumber/messages` `22.0.0`
+
 ### Fixed
 - Trim trailing spaces
 
@@ -38,7 +42,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [8.0.0] - 2022-05-31
 ### Changed
-- Upgrade to `@cucumber/messages` `19.0.0`
 - Upgrade to `@cucumber/gherkin` `24.0.0`
 
 ## [7.0.0] - 2021-09-01
