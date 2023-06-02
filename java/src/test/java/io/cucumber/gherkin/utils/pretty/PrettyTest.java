@@ -416,7 +416,7 @@ public class PrettyTest {
                         "    Given another\n" +
                         "\n" +
                         "  # before Rule\n" +
-                        "  Rule: \n" +
+                        "  Rule:\n" +
                         "  # after Rule\n" +
                         "\n" +
                         "    # after Rule indent\n" +
@@ -430,6 +430,53 @@ public class PrettyTest {
                 prettyPrint(gherkinDocument, Syntax.gherkin));
     }
 
+    @Test
+    void emptyNames(){
+        GherkinDocument gherkinDocument = parse("# before Feature\n" +
+                "Feature:   \n" +
+                "\n" +
+                "  Background:   \n" +
+                "\n" +
+                "  Scenario:   \n" +
+                "    Given nothing\n" +
+                "\n" +
+                "  @foo\n" +
+                "  Scenario:   \n" +
+                "    Given another\n" +
+                "\n" +
+                "  Rule:   \n" +
+                "\n" +
+                "    Background:   \n" +
+                "    Example:   \n" +
+                "      Given   \n" +
+                "      When   \n" +
+                "      Then   \n" +
+                "    Scenario:   \n");
+        assertEquals("# before Feature\n" +
+                "Feature:\n" +
+                "\n" +
+                "  Background:\n" +
+                "\n" +
+                "  Scenario:\n" +
+                "    Given nothing\n" +
+                "\n" +
+                "  @foo\n" +
+                "  Scenario:\n" +
+                "    Given another\n" +
+                "\n" +
+                "  Rule:\n" +
+                "\n" +
+                "    Background:\n" +
+                "\n" +
+                "    Example:\n" +
+                "      Given   \n" +
+                "      When   \n" +
+                "      Then   \n" +
+                "\n" +
+                "    Scenario:\n",
+                prettyPrint(gherkinDocument, Syntax.gherkin));
+    }
+    
     private GherkinDocument parse(String gherkin) {
         GherkinParser parser = GherkinParser
                 .builder()
