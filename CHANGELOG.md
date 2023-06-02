@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [8.0.5] - 2023-06-02
 ### Changed
 - Upgrade to `@cucumber/messages` `22.0.0`
 
@@ -114,7 +115,8 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v8.0.4...main
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v8.0.5...main
+[8.0.5]: https://github.com/cucumber/gherkin-utils/compare/v8.0.4...main
 [8.0.4]: https://github.com/cucumber/gherkin-utils/compare/v8.0.3...main
 [8.0.3]: https://github.com/cucumber/gherkin-utils/compare/v8.0.2...main
 [8.0.2]: https://github.com/cucumber/gherkin-utils/compare/v8.0.1...main
