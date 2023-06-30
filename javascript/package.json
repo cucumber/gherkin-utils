@@ -45,7 +45,7 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-simple-import-sort": "10.0.0",
-    "fast-glob": "3.2.12",
+    "fast-glob": "3.3.0",
     "mocha": "10.2.0",
     "npm-check-updates": "16.10.13",
     "prettier": "2.8.8",
