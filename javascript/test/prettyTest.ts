@@ -209,6 +209,19 @@ Feature: hello
 `)
   })
 
+  it('renders titles without trailing whitespace', () => {
+    checkGherkinToAstToGherkin(`Feature:
+
+  Rule:
+
+    Background:
+    Scenario Outlines:
+
+      Examples:
+`)
+  })
+
+
   const featureFiles = fg.sync(`${__dirname}/../../testdata/good/*.feature`)
   for (const featureFile of featureFiles) {
     const relativePath = path.relative(__dirname, featureFile)

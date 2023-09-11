@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- [JavaScript] Prevent the introduction of trailing whitespace after headings ([#34](https://github.com/cucumber/gherkin-utils/issues/34))
+
 ## [8.0.5] - 2023-06-02
 ### Changed
 - Upgrade to `@cucumber/messages` `22.0.0`
