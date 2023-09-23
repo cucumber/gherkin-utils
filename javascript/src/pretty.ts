@@ -74,6 +74,14 @@ function prettyLanguageHeader(language: string | undefined): string {
   return language === 'en' ? '' : `# language: ${language}\n`
 }
 
+function semiColumnName(name: string | null): string {
+  if (name == null || name.length == 0) {
+      return ':';
+  } else {
+      return ': ' + name;
+  }
+}
+
 function prettyKeywordContainer(
   stepContainer:
     | messages.Feature
@@ -93,8 +101,7 @@ function prettyKeywordContainer(
     .concat(prettyTags(tags, syntax, level))
     .concat(keywordPrefix(level, syntax))
     .concat(stepContainer.keyword)
-    .concat(': ')
-    .concat(stepContainer.name)
+    .concat(semiColumnName(stepContainer.name))
     .concat('\n')
     .concat(description)
     .concat(description && stepCount > 0 ? '\n' : '')
