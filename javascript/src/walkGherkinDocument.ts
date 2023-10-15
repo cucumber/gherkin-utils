@@ -41,6 +41,7 @@ export function walkGherkinDocument<Acc>(
       }
     }
   }
+  acc = walkComments(popRemainingContents(), acc);
   return acc
 
   function walkComments(comments: readonly messages.Comment[], acc: Acc): Acc {
@@ -113,6 +114,10 @@ export function walkGherkinDocument<Acc>(
       }
     }
     return commentsStack.splice(0, count)
+  }
+
+  function popRemainingContents(): readonly messages.Comment[] {
+    return commentsStack.splice(0, commentsStack.length)
   }
 }
 

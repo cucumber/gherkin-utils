@@ -190,6 +190,24 @@ Feature: hello
 `)
   })
 
+  it('renders trailing comments', () => {
+    checkGherkinToAstToGherkin(`# one
+Feature: hello
+
+  Scenario: one
+    # one
+    Given a doc string:
+      """
+      a
+      \\"\\"\\"
+      b
+      """
+      # two
+  # three
+# four
+`)
+  });
+
   it('renders descriptions when set', () => {
     checkGherkinToAstToGherkin(`Feature: hello
   So this is a feature
