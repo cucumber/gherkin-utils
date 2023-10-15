@@ -190,6 +190,28 @@ Feature: hello
 `)
   })
 
+  it.only('groups comments with their block', () => {
+    checkGherkinToAstToGherkin(`# zero
+  Feature: Archimedes
+
+  # one
+  # two
+  # three
+  Background:
+    Given prior science
+
+  # four
+  # five
+  # six
+  Scenario: Atlas
+    Given a steep hill
+    # And a large builder
+    When I walk up the hill
+    # Then I should make steady progress
+`)
+  })
+
+
   it('renders descriptions when set', () => {
     checkGherkinToAstToGherkin(`Feature: hello
   So this is a feature
