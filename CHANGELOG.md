@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Preserve trailing comments at end of file when prettying in JavaScript.
 
 ### Fixed
 - [JavaScript] Prevent the introduction of trailing whitespace after headings ([#34](https://github.com/cucumber/gherkin-utils/issues/34))
