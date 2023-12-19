@@ -201,8 +201,8 @@ export default class GherkinDocumentWalker {
 
     this.handlers.handleRule(rule)
 
-    const backgroundKept = children.find((child) => child !== null && child.background !== null)
-    const scenariosKept = children.filter((child) => child !== null && child.scenario !== null)
+    const backgroundKept = children.find((child) => child?.background)
+    const scenariosKept = children.filter((child) => child?.scenario)
 
     if (this.filters.acceptRule(rule) || backgroundKept) {
       return this.copyRule(rule, rule.children)
