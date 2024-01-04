@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Fixed
-- Preserve trailing comments at end of file when prettying in JavaScript.
+- [JavaScript] Preserve trailing comments at end of file when prettying in JavaScript ([#41](https://github.com/cucumber/gherkin-utils/pull/41)).
 - [JavaScript] Prevent the introduction of trailing whitespace after headings ([#34](https://github.com/cucumber/gherkin-utils/issues/34))
 - [JavaScript] Fix GherkinDocumentWalker filtering of `Rules` (cucumber/react-components#136)
 - [JavaScript] Fix test execution in Windows - Closes (cucumber/gherkin-utils#2)
