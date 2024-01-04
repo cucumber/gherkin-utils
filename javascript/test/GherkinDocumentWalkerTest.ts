@@ -155,8 +155,7 @@ Feature: hello
       assert.strictEqual(newSource, expectedNewSource)
     })
 
-    // TODO before merging https://github.com/cucumber/cucumber/pull/1419
-    xit('keeps a hit background', () => {
+    it('keeps a hit background', () => {
       const gherkinDocument = parse(`Feature: Solar System
 
   Background: Space
@@ -231,8 +230,7 @@ Feature: hello
       assert.strictEqual(newSource, expectedNewSource)
     })
 
-    // TODO before merging https://github.com/cucumber/cucumber/pull/1419
-    xit('keeps scenario in rule', () => {
+    it('keeps scenario in rule', () => {
       const gherkinDocument = parse(`Feature: Solar System
 
   Rule: Galaxy
