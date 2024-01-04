@@ -120,11 +120,11 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v8.0.5...main
-[8.0.5]: https://github.com/cucumber/gherkin-utils/compare/v8.0.4...main
-[8.0.4]: https://github.com/cucumber/gherkin-utils/compare/v8.0.3...main
-[8.0.3]: https://github.com/cucumber/gherkin-utils/compare/v8.0.2...main
-[8.0.2]: https://github.com/cucumber/gherkin-utils/compare/v8.0.1...main
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v8.0.5...HEAD
+[8.0.5]: https://github.com/cucumber/gherkin-utils/compare/v8.0.4...v8.0.5
+[8.0.4]: https://github.com/cucumber/gherkin-utils/compare/v8.0.3...v8.0.4
+[8.0.3]: https://github.com/cucumber/gherkin-utils/compare/v8.0.2...v8.0.3
+[8.0.2]: https://github.com/cucumber/gherkin-utils/compare/v8.0.1...v8.0.2
 [8.0.1]: https://github.com/cucumber/gherkin-utils/compare/v8.0.0...v8.0.1
 [8.0.0]: https://github.com/cucumber/gherkin-utils/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/cucumber/gherkin-utils/compare/v6.0.0...v7.0.0
