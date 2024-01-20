@@ -211,15 +211,15 @@ function prettyTableRow(
 
 function getStringWidth(str: string): number {
   let width = 0
-  for (const char of str) {
-    width += isCJKorFullWidth(char) ? 2 : 1
+  for (const character of str) {
+    width += isCJKorFullWidth(character) ? 2 : 1
   }
   return width
 }
 
-function isCJKorFullWidth(char: string): boolean {
+function isCJKorFullWidth(character: string): boolean {
   const pattern = /[\u3000-\u9fff\uac00-\ud7af\uff01-\uff60]/
-  return pattern.test(char)
+  return pattern.test(character)
 }
 
 export function escapeCell(s: string) {
