@@ -47,7 +47,7 @@
     "eslint-plugin-simple-import-sort": "10.0.0",
     "fast-glob": "3.3.2",
     "mocha": "10.2.0",
-    "npm-check-updates": "16.14.13",
+    "npm-check-updates": "16.14.14",
     "prettier": "3.2.4",
     "pretty-quick": "4.0.0",
     "rimraf": "^5.0.0",
