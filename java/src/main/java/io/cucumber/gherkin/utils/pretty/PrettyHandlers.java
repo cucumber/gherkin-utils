@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
  * Pretty prints a Gherkin Document
  */
 class PrettyHandlers implements GherkinDocumentHandlers<Result> {
+    private final Pattern startOfLine = Pattern.compile("^", Pattern.MULTILINE);
     private final List<Comment> comments;
     private final Syntax syntax;
     private int scenarioLevel = 1;
@@ -65,10 +66,12 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         String delimiter = makeDocStringDelimiter(syntax, docString);
         int level = syntax == Syntax.markdown ? 1 : scenarioLevel + 2;
         String indent = repeatString(level, "  ");
-        String docStringContent = docString.getContent().replace("^", indent);
+        String docStringContent = startOfLine
+                .matcher(docString.getContent())
+                .replaceAll(indent);
         if (syntax == Syntax.gherkin) {
             if ("\"\"\"".equals(docString.getDelimiter())) {
-                docStringContent = docStringContent.replace("\"", "\\\"\\\"\\\"");
+                docStringContent = docStringContent.replace("\"\"\"", "\\\"\\\"\\\"");
             } else {
                 docStringContent = docStringContent.replace("```", "\\`\\`\\`");
             }
