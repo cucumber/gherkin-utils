@@ -240,6 +240,26 @@ public class PrettyTest {
     }
 
     @Test
+    public void cjkTables() {
+        GherkinDocument gherkinDocument = parse("Feature: hello\n" +
+                "\n" +
+                "  Scenario: one\n" +
+                "    Given a data table:\n" +
+                "      |路| numbers |\n" +
+                "      |路|       1 |\n" +
+                "      |路步|      10 |\n" +
+                "      |路步路|     100 |\n");
+        assertEquals("Feature: hello\n" +
+                "\n" +
+                "  Scenario: one\n" +
+                "    Given a data table:\n" +
+                "      | 路     | numbers |\n" +
+                "      | 路     | 1       |\n" +
+                "      | 路步   | 10      |\n" +
+                "      | 路步路 | 100     |\n", prettyPrint(gherkinDocument, Syntax.gherkin));
+    }
+
+    @Test
     public void docString() {
         GherkinDocument gherkinDocument = parse("Feature: hello\n" +
                 "\n" +

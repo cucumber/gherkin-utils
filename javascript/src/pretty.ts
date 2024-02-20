@@ -75,11 +75,7 @@ function prettyLanguageHeader(language: string | undefined): string {
 }
 
 function semiColumnName(name: string | null): string {
-  if (name == null || name.length == 0) {
-      return ':';
-  } else {
-      return ': ' + name;
-  }
+  return name == null || name.length == 0 ? ':' : ': ' + name
 }
 
 function prettyKeywordContainer(
@@ -172,7 +168,7 @@ function prettyTableRows(
   const maxWidths: number[] = new Array(tableRows[0].cells.length).fill(0)
   tableRows.forEach((tableRow) => {
     tableRow.cells.forEach((tableCell, j) => {
-      maxWidths[j] = Math.max(maxWidths[j], escapeCell(tableCell.value).length)
+      maxWidths[j] = Math.max(maxWidths[j], getStringWidth(escapeCell(tableCell.value)))
     })
   })
 
@@ -206,11 +202,24 @@ function prettyTableRow(
   return `${spaces(actualLevel)}| ${row.cells
     .map((cell, j) => {
       const escapedCellValue = escapeCell(cell.value)
-      const spaceCount = maxWidths[j] - escapedCellValue.length
+      const spaceCount = maxWidths[j] - getStringWidth(escapedCellValue)
       const spaces = new Array(spaceCount + 1).join(' ')
       return isNumeric(escapedCellValue) ? spaces + escapedCellValue : escapedCellValue + spaces
     })
     .join(' | ')} |\n`
+}
+
+function getStringWidth(str: string): number {
+  let width = 0
+  for (const character of str) {
+    width += isCJKorFullWidth(character) ? 2 : 1
+  }
+  return width
+}
+
+function isCJKorFullWidth(character: string): boolean {
+  const pattern = /[\u3000-\u9fff\uac00-\ud7af\uff01-\uff60]/
+  return pattern.test(character)
 }
 
 export function escapeCell(s: string) {
