@@ -1,6 +1,3 @@
-Please read [CONTRIBUTING](https://github.com/cucumber/common/blob/main/CONTRIBUTING.md) first. You should clone
-the [cucumber/cucumber](https://github.com/cucumber/cucumber) repo if you want to contribute.
-
 ## Run tests
 
 ### Using make
