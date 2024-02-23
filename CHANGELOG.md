@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [JavaScript] Fix GherkinDocumentWalker filtering of `Rules` (cucumber/react-components#136)
 - [JavaScript] Fix test execution in Windows - Closes (cucumber/gherkin-utils#2)
 - [Java] Fix docstring pretty formatting ([#58](https://github.com/cucumber/gherkin-utils/issues/58))
+- Table formatting for full width characters ([#53](https://github.com/cucumber/gherkin-utils/pull/53))
 
 ## [8.0.5] - 2023-06-02
 ### Changed

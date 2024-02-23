@@ -140,11 +140,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
     }
 
     private String semiColumnAndName(String name) {
-    	if (name == null || name.isEmpty()) {
-    		return ":";
-    	}
-    	
-		return ": " + name;
+        return (name == null || name.isEmpty()) ? ":" : ": " + name;
 	}
 
     private Result appendScenario(
@@ -331,7 +327,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         for (TableRow tableRow : tableRows) {
             for (int j = 0; j < tableRow.getCells().size(); ++j) {
                 TableCell tableCell = tableRow.getCells().get(j);
-                maxWidths[j] = Math.max(maxWidths[j], escapeCell(tableCell.getValue()).length());
+                maxWidths[j] = Math.max(maxWidths[j], getStringWidth(escapeCell(tableCell.getValue())));
             }
         }
 
@@ -391,7 +387,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
             }
             TableCell tableCell = row.getCells().get(j);
             String escapedCellValue = escapeCell(tableCell.getValue());
-            int spaceCount = maxWidths[j] - escapedCellValue.length();
+            int spaceCount = maxWidths[j] - getStringWidth(escapedCellValue);
             String spaces = repeatString(spaceCount, " ");
             //res.append(isNumeric(escapedCellValue) ? spaces + escapedCellValue : escapedCellValue + spaces);
             result.append(escapedCellValue + spaces);
@@ -421,6 +417,18 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         }
     }
 
+    private static int getStringWidth(String s) {
+        int width = 0;
+        for (char character : s.toCharArray()) {
+            width += isCJKorFullWidth(character) ? 2 : 1;
+        }
+        return width;
+    }
+
+    private static boolean isCJKorFullWidth(char character) {
+        Pattern pattern = Pattern.compile("[\\u3000-\\u9fff\\uac00-\\ud7af\\uff01-\\uff60]");
+        return pattern.matcher(String.valueOf(character)).find();
+    }
 
     private String escapeCell(String s) {
         StringBuilder e = new StringBuilder();
