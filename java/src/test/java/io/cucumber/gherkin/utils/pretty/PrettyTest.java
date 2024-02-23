@@ -264,19 +264,21 @@ public class PrettyTest {
         GherkinDocument gherkinDocument = parse("Feature: hello\n" +
                 "\n" +
                 "  Scenario: one\n" +
-                "    Given a data table:\n" +
-                "      | text | numbers |\n" +
-                "      | a    |       1 |\n" +
-                "      | ab   |      10 |\n" +
-                "      | abc  |     100 |\n");
+                "    Given a doc string:\n" +
+                "       \"\"\"ndjson\n" +
+                " { \"hello\": \"world\" }\n" +
+                " { \"goodbye\": \"moon\" }\n" +
+                "       \"\"\"\n"
+                );
+
         assertEquals("Feature: hello\n" +
                 "\n" +
                 "  Scenario: one\n" +
-                "    Given a data table:\n" +
-                "      | text | numbers |\n" +
-                "      | a    | 1       |\n" +
-                "      | ab   | 10      |\n" +
-                "      | abc  | 100     |\n", prettyPrint(gherkinDocument, Syntax.gherkin));
+                "    Given a doc string:\n" +
+                "      \"\"\"ndjson\n" +
+                "      { \"hello\": \"world\" }\n" +
+                "      { \"goodbye\": \"moon\" }\n" +
+                "      \"\"\"\n", prettyPrint(gherkinDocument, Syntax.gherkin));
     }
 
     @Test
