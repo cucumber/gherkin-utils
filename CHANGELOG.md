@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [8.0.6] - 2024-02-23
 ### Fixed
 - [JavaScript] Preserve trailing comments at end of file when prettying in JavaScript ([#41](https://github.com/cucumber/gherkin-utils/pull/41)).
 - [JavaScript] Prevent the introduction of trailing whitespace after headings ([#34](https://github.com/cucumber/gherkin-utils/issues/34))
@@ -13,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [JavaScript] Fix test execution in Windows - Closes (cucumber/gherkin-utils#2)
 - [Java] Fix docstring pretty formatting ([#58](https://github.com/cucumber/gherkin-utils/issues/58))
 - Table formatting for full width characters ([#53](https://github.com/cucumber/gherkin-utils/pull/53))
-- [Java] Fix urls in project metadata 
+- [Java] Fix urls in project metadata
 
 ## [8.0.5] - 2023-06-02
 ### Changed
@@ -123,7 +125,8 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v8.0.5...HEAD
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v8.0.6...HEAD
+[8.0.6]: https://github.com/cucumber/gherkin-utils/compare/v8.0.5...v8.0.6
 [8.0.5]: https://github.com/cucumber/gherkin-utils/compare/v8.0.4...v8.0.5
 [8.0.4]: https://github.com/cucumber/gherkin-utils/compare/v8.0.3...v8.0.4
 [8.0.3]: https://github.com/cucumber/gherkin-utils/compare/v8.0.2...v8.0.3
