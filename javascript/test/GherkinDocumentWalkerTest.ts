@@ -1,4 +1,5 @@
 import assert from 'assert'
+
 import GherkinDocumentWalker, { rejectAllFilters } from '../src/GherkinDocumentWalker'
 import pretty from '../src/pretty'
 import parse from './parse'

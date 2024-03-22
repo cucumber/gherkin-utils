@@ -1,4 +1,5 @@
 import * as messages from '@cucumber/messages'
+
 import { walkGherkinDocument } from './walkGherkinDocument'
 
 export type Syntax = 'markdown' | 'gherkin'

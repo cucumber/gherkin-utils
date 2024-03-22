@@ -1,4 +1,5 @@
 import { Command, Option } from 'commander'
+
 import { version } from '../package.json'
 import { formatCommand, FormatOptions } from './commands/formatCommand'
 

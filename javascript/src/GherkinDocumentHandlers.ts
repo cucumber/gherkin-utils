@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as messages from '@cucumber/messages'
 
 export type GherkinDocumentHandlers<Acc> = {

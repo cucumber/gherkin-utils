@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import * as messages from '@cucumber/messages'
+
 import { GherkinDocumentHandlers } from './GherkinDocumentHandlers'
 
 /**
@@ -41,7 +43,7 @@ export function walkGherkinDocument<Acc>(
       }
     }
   }
-  acc = walkComments(popRemainingContents(), acc);
+  acc = walkComments(popRemainingContents(), acc)
   return acc
 
   function walkComments(comments: readonly messages.Comment[], acc: Acc): Acc {
@@ -120,7 +122,6 @@ export function walkGherkinDocument<Acc>(
     return commentsStack.splice(0, commentsStack.length)
   }
 }
-
 
 function makeDefaultHandlers<Acc>() {
   const defaultHandlers: GherkinDocumentHandlers<Acc> = {

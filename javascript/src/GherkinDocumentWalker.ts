@@ -1,4 +1,5 @@
 // This file is DEPRECATED - use ./walkGherkinDocument instead
+/* eslint-disable no-unused-vars */
 import * as messages from '@cucumber/messages'
 
 export interface IFilters {

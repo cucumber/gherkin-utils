@@ -1,13 +1,13 @@
-import assert from 'assert'
-import * as messages from '@cucumber/messages'
 import { NdjsonToMessageStream } from '@cucumber/message-streams'
-import { Writable, pipeline } from 'stream'
-
-import { GherkinDocumentWalker } from '../src'
-import fs from 'fs'
+import * as messages from '@cucumber/messages'
+import assert from 'assert'
 import fg from 'fast-glob'
 import { convertWindowsPathToPattern } from 'fast-glob/out/utils/path'
+import fs from 'fs'
+import { pipeline,Writable } from 'stream'
 import { promisify } from 'util'
+
+import { GherkinDocumentWalker } from '../src'
 
 const asyncPipeline = promisify(pipeline)
 
