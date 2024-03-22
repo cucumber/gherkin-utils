@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- [JavaScript] Fix background parameter name in GherkinDocumentHandlers ([#68](https://github.com/cucumber/gherkin-utils/pull/68))
 
 ## [8.0.6] - 2024-02-23
 ### Fixed
