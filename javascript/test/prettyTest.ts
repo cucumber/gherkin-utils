@@ -8,6 +8,8 @@ import path from 'path'
 import pretty, { escapeCell } from '../src/pretty'
 import parse from './parse'
 
+const featuresPath = path.resolve(__dirname, '../node_modules/@cucumber/compatibility-kit/features')
+
 describe('pretty', () => {
   it('renders an empty file', () => {
     checkGherkinToAstToMarkdownToAstToGherkin('')
@@ -219,7 +221,7 @@ Feature: hello
   # three
 # four
 `)
-  });
+  })
 
   it('renders descriptions when set', () => {
     checkGherkinToAstToGherkin(`Feature: hello
@@ -252,8 +254,7 @@ Feature: hello
 `)
   })
 
-
-  const featureFiles = fg.sync(`${__dirname}/../../testdata/good/*.feature`)
+  const featureFiles = fg.sync(`${featuresPath}/**/*.feature`)
   for (const featureFile of featureFiles) {
     const relativePath = path.relative(__dirname, featureFile)
     it(`renders ${relativePath}`, () => {
