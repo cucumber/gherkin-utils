@@ -8,8 +8,8 @@
   "scripts": {
     "build": "tsc --build tsconfig.build.json",
     "clean": "rm -rf dist",
-    "eslint-fix": "eslint --ext ts,tsx --max-warnings 0 --fix",
-    "eslint": "eslint --ext ts,tsx --max-warnings 0",
+    "eslint-fix": "eslint --ext ts,tsx --max-warnings 0 --fix src",
+    "eslint": "eslint --ext ts,tsx --max-warnings 0 src",
     "test": "mocha",
     "prepublishOnly": "tsc --build tsconfig.build.json",
     "upgrade": "npm-check-updates --upgrade"

@@ -1,10 +1,11 @@
+import { AstBuilder, GherkinClassicTokenMatcher, GherkinInMarkdownTokenMatcher, Parser, } from '@cucumber/gherkin'
+import * as messages from '@cucumber/messages'
 import fs, { unlink as unlinkCb } from 'fs'
 import path from 'path'
-import * as messages from '@cucumber/messages'
-import { AstBuilder, GherkinClassicTokenMatcher, GherkinInMarkdownTokenMatcher, Parser, } from '@cucumber/gherkin'
-import pretty, { Syntax } from '../pretty'
-import { promisify } from 'util'
 import { Readable, Writable } from 'stream'
+import { promisify } from 'util'
+
+import pretty, { Syntax } from '../pretty'
 
 const unlink = promisify(unlinkCb)
 

@@ -1,7 +1,7 @@
-export * from './walkGherkinDocument'
 export * from './GherkinDocumentHandlers'
+export * from './walkGherkinDocument'
+import GherkinDocumentWalker, { rejectAllFilters } from './GherkinDocumentWalker'
 import pretty from './pretty'
 import Query from './Query'
-import GherkinDocumentWalker, { rejectAllFilters } from './GherkinDocumentWalker'
 
-export { pretty, Query, GherkinDocumentWalker, rejectAllFilters }
+export { GherkinDocumentWalker, pretty, Query, rejectAllFilters }

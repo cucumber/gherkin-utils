@@ -1,15 +1,16 @@
-import { formatCommand } from '../../src/commands/formatCommand'
 import assert from 'assert'
 import {
   existsSync,
-  readFile as readFileCb,
-  writeFile as writeFileCb,
   mkdir as mkdirCb,
   mkdtemp as mkdtempCb,
+  readFile as readFileCb,
+  writeFile as writeFileCb,
 } from 'fs'
 import os from 'os'
-import { promisify } from 'util'
 import { Readable, Writable } from 'stream'
+import { promisify } from 'util'
+
+import { formatCommand } from '../../src/commands/formatCommand'
 
 const mkdtemp = promisify(mkdtempCb)
 const mkdir = promisify(mkdirCb)

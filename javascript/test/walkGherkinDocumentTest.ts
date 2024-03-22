@@ -1,6 +1,7 @@
 import assert from 'assert'
-import parse from './parse'
+
 import { GherkinDocumentHandlers, walkGherkinDocument } from '../src'
+import parse from './parse'
 
 describe('walkGherkinDocument', () => {
   it('traverses depth first', () => {

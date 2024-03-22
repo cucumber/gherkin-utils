@@ -1,11 +1,12 @@
-import assert from 'assert'
-import path from 'path'
-import parse from './parse'
-import pretty, { escapeCell } from '../src/pretty'
 import { GherkinClassicTokenMatcher, GherkinInMarkdownTokenMatcher } from '@cucumber/gherkin'
+import * as messages from '@cucumber/messages'
+import assert from 'assert'
 import fg from 'fast-glob'
 import fs from 'fs'
-import * as messages from '@cucumber/messages'
+import path from 'path'
+
+import pretty, { escapeCell } from '../src/pretty'
+import parse from './parse'
 
 describe('pretty', () => {
   it('renders an empty file', () => {
