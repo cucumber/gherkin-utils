@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [9.0.0] - 2024-03-26
 ### Changed
 - [JavaScript] Fix background parameter name in GherkinDocumentHandlers ([#68](https://github.com/cucumber/gherkin-utils/pull/68))
 
@@ -130,7 +132,8 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v8.0.6...HEAD
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v9.0.0...HEAD
+[9.0.0]: https://github.com/cucumber/gherkin-utils/compare/v8.0.6...v9.0.0
 [8.0.6]: https://github.com/cucumber/gherkin-utils/compare/v8.0.5...v8.0.6
 [8.0.5]: https://github.com/cucumber/gherkin-utils/compare/v8.0.4...v8.0.5
 [8.0.4]: https://github.com/cucumber/gherkin-utils/compare/v8.0.3...v8.0.4
