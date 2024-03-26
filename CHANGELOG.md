@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - [JavaScript] Fix background parameter name in GherkinDocumentHandlers ([#68](https://github.com/cucumber/gherkin-utils/pull/68))
 
+### Fixed
+- [JavaScript] Correct repo URL in `package.json`
+
 ## [8.0.6] - 2024-02-23
 ### Fixed
 - [JavaScript] Preserve trailing comments at end of file when prettying in JavaScript ([#41](https://github.com/cucumber/gherkin-utils/pull/41)).
