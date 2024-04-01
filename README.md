@@ -4,12 +4,12 @@
   Gherkin Utils
 </h1>
 <p align="center">
-  <b>Library of utilities for working with Gherkin documents and AST</b>
+  <b>Utilities library for working with Gherkin documents and AST</b>
 </p>
 
 [![npm](https://img.shields.io/npm/v/@cucumber/gherkin-utils.svg)](https://www.npmjs.com/package/@cucumber/gherkin-utils)
 [![maven-central](https://img.shields.io/maven-central/v/io.cucumber/gherkin-utils.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.cucumber/gherkin-utils)
-[![build](https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml/badge.svg)](https://github.com/cucumber/release-github/actions)
+[![build](https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml/badge.svg)](https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml)
 [![backers](https://opencollective.com/cucumber/backers/badge.svg)](https://opencollective.com/cucumber)
 [![sponsors](https://opencollective.com/cucumber/sponsors/badge.svg)](https://opencollective.com/cucumber)
 
@@ -24,7 +24,7 @@
 
 Gherkin Utils is [available on npm](https://www.npmjs.com/package/@cucumber/gherkin-utils) for JavaScript:
 
-```shell
+```console
 npm install @cucumber/gherkin-utils
 ```
 
@@ -65,6 +65,41 @@ This module can also be used as a library. It provides two main utilities, `pret
 ### pretty(gherkinDocument: messages.GherkinDocument, syntax: 'gherkin' | 'markdown')
 
 This function takes a GherkinDocument as input and returns a pretty-printed representation in Gherkin or Markdown.
+
+```javascript
+import { AstBuilder, GherkinClassicTokenMatcher, Parser } from '@cucumber/gherkin'
+import { pretty } from '@cucumber/gherkin-utils'
+import { IdGenerator } from '@cucumber/messages'
+
+const uuidFn = IdGenerator.uuid()
+
+const builder = new AstBuilder(uuidFn)
+const matcher = new GherkinClassicTokenMatcher()
+const parser = new Parser(builder, matcher)
+
+const feature = `Feature:
+Scenario:
+Given step text`
+
+const gherkinDocument = parser.parse(feature)
+
+const formattedGherkinFeature = pretty(gherkinDocument)
+/*
+Feature:
+
+  Scenario:
+    Given step text
+
+*/
+const formattedGherkinMarkdownFeature = pretty(gherkinDocument, 'markdown')
+/*
+# Feature:
+
+## Scenario:
+* Given step text
+
+*/
+```
 
 ### GherkinDocumentWalker class
 
