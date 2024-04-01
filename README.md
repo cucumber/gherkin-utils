@@ -4,15 +4,15 @@
   Gherkin Utils
 </h1>
 <p align="center">
-  <b>Utilities library for working with Gherkin documents and AST</b>
+  <b>Utilities for working with Gherkin documents and AST</b>
 </p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@cucumber/gherkin-utils">
-    <img src="https://img.shields.io/npm/v/@cucumber/gherkin-utils.svg" alt="npm">
+    <img src="https://img.shields.io/npm/v/@cucumber/gherkin-utils.svg?color=dark-green" alt="npm">
   </a>
   <a href="https://central.sonatype.com/artifact/io.cucumber/gherkin-utils">
-    <img src="https://img.shields.io/maven-central/v/io.cucumber/gherkin-utils.svg?label=Maven%20Central" alt="maven-central">
+    <img src="https://img.shields.io/maven-central/v/io.cucumber/gherkin-utils.svg?label=Maven%20Central&color=dark-green" alt="maven-central">
   </a>
   <a href="https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml">
     <img src="https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml/badge.svg" alt="build">
