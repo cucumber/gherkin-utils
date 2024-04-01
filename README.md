@@ -7,11 +7,23 @@
   <b>Utilities library for working with Gherkin documents and AST</b>
 </p>
 
-[![npm](https://img.shields.io/npm/v/@cucumber/gherkin-utils.svg)](https://www.npmjs.com/package/@cucumber/gherkin-utils)
-[![maven-central](https://img.shields.io/maven-central/v/io.cucumber/gherkin-utils.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.cucumber/gherkin-utils)
-[![build](https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml/badge.svg)](https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml)
-[![backers](https://opencollective.com/cucumber/backers/badge.svg)](https://opencollective.com/cucumber)
-[![sponsors](https://opencollective.com/cucumber/sponsors/badge.svg)](https://opencollective.com/cucumber)
+<p align="center">
+  <a href="https://www.npmjs.com/package/@cucumber/gherkin-utils">
+    <img src="https://img.shields.io/npm/v/@cucumber/gherkin-utils.svg" alt="npm">
+  </a>
+  <a href="https://central.sonatype.com/artifact/io.cucumber/gherkin-utils">
+    <img src="https://img.shields.io/maven-central/v/io.cucumber/gherkin-utils.svg?label=Maven%20Central" alt="maven-central">
+  </a>
+  <a href="https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml">
+    <img src="https://github.com/cucumber/gherkin-utils/actions/workflows/release-github.yaml/badge.svg" alt="build">
+  </a>
+  <a href="https://opencollective.com/cucumber">
+    <img src="https://opencollective.com/cucumber/backers/badge.svg" alt="backers">
+  </a>
+  <a href="https://opencollective.com/cucumber">
+    <img src="https://opencollective.com/cucumber/sponsors/badge.svg" alt="sponsors">
+  </a>
+</p>
 
 ## Features
 
