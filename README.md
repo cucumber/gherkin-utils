@@ -147,7 +147,3 @@ const scenarioNameFinder = new GherkinDocumentWalker({}, {
   handleScenario: (scenario) => allScenarioNames.push(scenario.name),
 })
 ```
-
-## Support
-
-Support is [available from the community](https://cucumber.io/tools/cucumber-open/support/) if you need it.
