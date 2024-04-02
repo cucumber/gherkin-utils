@@ -6,7 +6,7 @@
   "types": "dist/src/index.d.ts",
   "bin": "bin/gherkin-utils",
   "scripts": {
-    "build": "tsc --build tsconfig.build.json",
+    "build": "tsc --build tsconfig.build.json && cp ../README.md dist",
     "clean": "rm -rf dist",
     "eslint-fix": "eslint --ext ts,tsx --max-warnings 0 --fix src",
     "eslint": "eslint --ext ts,tsx --max-warnings 0 src",
