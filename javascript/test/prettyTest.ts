@@ -302,7 +302,7 @@ Feature: hello
     it('should retain spaces between hashtag and text', () => {
       assert.deepStrictEqual(prettyComment('#    text'), '#    text')
     })
-    it('inline hashtag should be ignored', () => {
+    it('should not introduce space after inline hashtag', () => {
       assert.deepStrictEqual(prettyComment('number #1'), 'number #1')
     })
   })

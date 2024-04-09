@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [JavaScript] Trim comment trailing whitespace and introduce space after comment hashtag ([#75](https://github.com/cucumber/gherkin-utils/pull/75))
 
 ## [9.0.0] - 2024-03-26
 ### Changed
