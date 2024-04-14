@@ -54,10 +54,7 @@ Gherkin Utils is [available on Maven Central](https://central.sonatype.com/artif
 
 ## Command line
 
-The command-line tool can be used to format `.feature` files or to translate `.feature` files
-into `.feature.md` files.
-
-To run Gherkin utils as a formatter, try any of the following:
+To run Gherkin Utils as a formatter, try any of the following:
 
 ```console
 # Format `file.feature`
@@ -92,23 +89,27 @@ This module can also be used as a library. It provides two main utilities, `pret
 This function takes a GherkinDocument as input and returns a pretty-printed representation in Gherkin or Markdown.
 
 ```javascript
-import { AstBuilder, GherkinClassicTokenMatcher, Parser } from '@cucumber/gherkin'
-import { pretty } from '@cucumber/gherkin-utils'
-import { IdGenerator } from '@cucumber/messages'
+import {
+  AstBuilder,
+  GherkinClassicTokenMatcher,
+  Parser,
+} from "@cucumber/gherkin";
+import { pretty } from "@cucumber/gherkin-utils";
+import { IdGenerator } from "@cucumber/messages";
 
-const uuidFn = IdGenerator.uuid()
+const uuidFn = IdGenerator.uuid();
 
-const builder = new AstBuilder(uuidFn)
-const matcher = new GherkinClassicTokenMatcher()
-const parser = new Parser(builder, matcher)
+const builder = new AstBuilder(uuidFn);
+const matcher = new GherkinClassicTokenMatcher();
+const parser = new Parser(builder, matcher);
 
 const feature = `Feature:
 Scenario:
-Given step text`
+Given step text`;
 
-const gherkinDocument = parser.parse(feature)
+const gherkinDocument = parser.parse(feature);
 
-const formattedGherkinFeature = pretty(gherkinDocument)
+const formattedGherkinFeature = pretty(gherkinDocument);
 /*
 Feature:
 
@@ -116,7 +117,7 @@ Feature:
     Given step text
 
 */
-const formattedGherkinMarkdownFeature = pretty(gherkinDocument, 'markdown')
+const formattedGherkinMarkdownFeature = pretty(gherkinDocument, "markdown");
 /*
 # Feature:
 
@@ -146,17 +147,27 @@ By default, all elements are accepted, which means that if you want to do filter
 Here's an example:
 
 ```typescript
-import { GherkinDocumentWalker, rejectAllFilters } from '@cucumber/gherkin-utils';
+import {
+  GherkinDocumentWalker,
+  rejectAllFilters,
+} from "@cucumber/gherkin-utils";
 
 // Only keeps scenarios which name include 'magic'
 const filter = new GherkinDocumentWalker({
   ...rejectAllFilters,
-  ...{ acceptScenario: (scenario) => scenario.name.includes('magic') },
-})
+  ...{ acceptScenario: (scenario) => scenario.name.includes("magic") },
+});
 
 // Makes a list with all the scenario names
-const allScenarioNames: string[] = []
-const scenarioNameFinder = new GherkinDocumentWalker({}, {
-  handleScenario: (scenario) => allScenarioNames.push(scenario.name),
-})
+const allScenarioNames: string[] = [];
+const scenarioNameFinder = new GherkinDocumentWalker(
+  {},
+  {
+    handleScenario: (scenario) => allScenarioNames.push(scenario.name),
+  }
+);
 ```
+
+## Feedback
+
+If you discover a bug, or have a suggestion for a feature request, please submit an [issue](https://github.com/cucumber/gherkin-utils/issues).
