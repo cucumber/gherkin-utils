@@ -57,6 +57,19 @@ Gherkin Utils is [available on Maven Central](https://central.sonatype.com/artif
 The command-line tool can be used to format `.feature` files or to translate `.feature` files
 into `.feature.md` files.
 
+To run Gherkin utils as a formatter, try any of the following:
+
+```console
+# Format `file.feature`
+npx @cucumber/gherkin-utils format features/file.feature
+# Format all feature files in `features/` (and any subdirectories)
+npx @cucumber/gherkin-utils format features/
+# Check files that would be reformatted in `features/`
+npx @cucumber/gherkin-utils format --check features/
+# Check files that would be reformatted in `features/` and output the diff
+npx @cucumber/gherkin-utils format --diff features/
+```
+
 The following example translates all `.feature` files to `.feature.md` files and then deletes the `.feature` files (see [Markdown with Gherkin](https://github.com/cucumber/common/blob/main/gherkin/MARKDOWN_WITH_GHERKIN.md)).
 **Note**: Globs must be quoted to prevent the shell from expanding the globs.
 
