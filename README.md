@@ -54,19 +54,42 @@ Gherkin Utils is [available on Maven Central](https://central.sonatype.com/artif
 
 ## Command line
 
-The command-line tool can be used to format `.feature` files or to translate `.feature` files
-into `.feature.md` files.
+```bash
+-> npx @cucumber/gherkin-utils format features
+❌ 7 files failed to format
+🥒 14 files left unchanged
+🥒 25 files reformatted
+```
 
-The following example translates all `.feature` files to `.feature.md` files and then deletes the `.feature` files (see [Markdown with Gherkin](https://github.com/cucumber/common/blob/main/gherkin/MARKDOWN_WITH_GHERKIN.md)).
-**Note**: Globs must be quoted to prevent the shell from expanding the globs.
+To run Gherkin Utils as a formatter, try any of the following:
 
-```console
-npx @cucumber/gherkin-utils format --move "features/**/*.feature" "features/**/*.feature.md"
+```bash
+# Format `file.feature`
+npx @cucumber/gherkin-utils format features/file.feature
+# Format `one.feature` and `two.feature`
+npx @cucumber/gherkin-utils format features/one.feature features/two.feature
+# Format all feature files in `features/` (and any subdirectories)
+npx @cucumber/gherkin-utils format features/
+# Format all feature files ending with `_test.feature` in `features`
+npx @cucumber/gherkin-utils format features/**/*_test.feature
+# Check files that would be reformatted in `features/`
+npx @cucumber/gherkin-utils format --check features/
+# Check files that would be reformatted in `features/` and output the diff
+npx @cucumber/gherkin-utils format --diff features/
+```
+
+To convert to [Markdown with Gherkin](https://github.com/cucumber/common/blob/main/gherkin/MARKDOWN_WITH_GHERKIN.md) or feature files while formatting, try the following:
+
+```bash
+# Format all feature files in `features/` (and any subdirectories) and convert to gherkin markdown
+npx @cucumber/gherkin-utils format --to-syntax=markdown features/
+# Format all feature files in `features/` (and any subdirectories) and convert to gherkin
+npx @cucumber/gherkin-utils format --to-syntax=gherkin features/
 ```
 
 For more details on usage, see the help menu.
 
-```console
+```bash
 npx @cucumber/gherkin-utils --help
 ```
 
@@ -79,9 +102,9 @@ This module can also be used as a library. It provides two main utilities, `pret
 This function takes a GherkinDocument as input and returns a pretty-printed representation in Gherkin or Markdown.
 
 ```javascript
-import { AstBuilder, GherkinClassicTokenMatcher, Parser } from '@cucumber/gherkin'
-import { pretty } from '@cucumber/gherkin-utils'
-import { IdGenerator } from '@cucumber/messages'
+import { AstBuilder, GherkinClassicTokenMatcher,Parser } from "@cucumber/gherkin";
+import { pretty } from "@cucumber/gherkin-utils"
+import { IdGenerator } from "@cucumber/messages"
 
 const uuidFn = IdGenerator.uuid()
 
@@ -103,7 +126,7 @@ Feature:
     Given step text
 
 */
-const formattedGherkinMarkdownFeature = pretty(gherkinDocument, 'markdown')
+const formattedGherkinMarkdownFeature = pretty(gherkinDocument, "markdown")
 /*
 # Feature:
 
@@ -133,17 +156,24 @@ By default, all elements are accepted, which means that if you want to do filter
 Here's an example:
 
 ```typescript
-import { GherkinDocumentWalker, rejectAllFilters } from '@cucumber/gherkin-utils';
+import { GherkinDocumentWalker, rejectAllFilters } from "@cucumber/gherkin-utils"
 
 // Only keeps scenarios which name include 'magic'
 const filter = new GherkinDocumentWalker({
   ...rejectAllFilters,
-  ...{ acceptScenario: (scenario) => scenario.name.includes('magic') },
+  ...{ acceptScenario: (scenario) => scenario.name.includes("magic") },
 })
 
 // Makes a list with all the scenario names
-const allScenarioNames: string[] = []
-const scenarioNameFinder = new GherkinDocumentWalker({}, {
-  handleScenario: (scenario) => allScenarioNames.push(scenario.name),
-})
+const allScenarioNames: string[] = [];
+const scenarioNameFinder = new GherkinDocumentWalker(
+  {},
+  {
+    handleScenario: (scenario) => allScenarioNames.push(scenario.name),
+  }
+)
 ```
+
+## Feedback
+
+If you discover a bug, or have a suggestion for a feature request, please submit an [issue](https://github.com/cucumber/gherkin-utils/issues).
