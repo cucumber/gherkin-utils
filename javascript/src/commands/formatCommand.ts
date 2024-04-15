@@ -5,11 +5,12 @@ import {
   Parser,
 } from '@cucumber/gherkin'
 import * as messages from '@cucumber/messages'
+import * as diff from 'diff'
 import fs, { unlink as unlinkCb } from 'fs'
 import path from 'path'
 import { Readable, Writable } from 'stream'
 import { promisify } from 'util'
-import * as diff from 'diff'
+
 import pretty, { Syntax } from '../pretty'
 
 const unlink = promisify(unlinkCb)
@@ -31,6 +32,8 @@ type FileFormat = {
 }
 
 // TODO: Support `.md` files
+// TODO: Support globs
+// TODO: Ignore conversion failures
 function getFeatureFiles(filePath: string): string[] {
   const stat = fs.statSync(filePath)
   let files: string[] = []
@@ -82,17 +85,31 @@ export async function formatCommand(
 
   let unchangedCount = 0
   let reformatCount = 0
+  let failuresCount = 0
 
   for (const fileFormat of fileFormats) {
-    const wouldBeReformatted = await convert(fileFormat, options.language, options)
-    wouldBeReformatted ? reformatCount++ : unchangedCount++
+    try {
+      const wouldBeReformatted = await convert(fileFormat, options.language, options)
+      wouldBeReformatted ? reformatCount++ : unchangedCount++
+    } catch (error) {
+      // TODO: Include file path
+      failuresCount++
+      console.error(`Failed to convert file: ${error.message}`)
+    }
+  }
+
+  if (failuresCount > 0) {
+    console.error(`❌ ${failuresCount} file${getPlural(failuresCount)} failed to format`)
   }
   if (unchangedCount > 0) {
-    console.log(`${unchangedCount} file${getPlural(unchangedCount)} left unchanged`)
+    console.log(`🥒 ${unchangedCount} file${getPlural(unchangedCount)} left unchanged`)
   }
   if (reformatCount > 0) {
     const tense = options.check ? 'would be ' : ''
-    console.log(`${reformatCount} file${getPlural(reformatCount)} ${tense}reformatted`)
+    console.log(`🥒 ${reformatCount} file${getPlural(reformatCount)} ${tense}reformatted`)
+    process.exit(1)
+  }
+  if (failuresCount > 0) {
     process.exit(1)
   }
 }
@@ -106,7 +123,7 @@ async function convert(fileFormat: FileFormat, language: string, options: Format
     parse(output, fileFormat.writableSyntax, gherkinDocument.feature?.language)
   } catch (err) {
     err.message += `The generated output is not parseable. This is a bug.
-Please report a bug at https://github.com/cucumber/common/issues/new
+Please report a bug at https://github.com/cucumber/gherkin/issues
 
 --- Generated ${fileFormat.writableSyntax} source ---
 ${output}
@@ -127,6 +144,7 @@ ${output}
   if (options.diff) {
     const differences = diff.createPatch('filename.feature', source, output)
     console.log(differences)
+    return true
   }
 
   const writable = fileFormat.writable()
