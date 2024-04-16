@@ -1,9 +1,4 @@
-import {
-  AstBuilder,
-  GherkinClassicTokenMatcher,
-  GherkinInMarkdownTokenMatcher,
-  Parser,
-} from '@cucumber/gherkin'
+import { AstBuilder, GherkinClassicTokenMatcher, GherkinInMarkdownTokenMatcher, Parser, } from '@cucumber/gherkin'
 import * as messages from '@cucumber/messages'
 import * as diff from 'diff'
 import fs, { unlink as unlinkCb } from 'fs'
@@ -70,7 +65,7 @@ export async function formatCommand(
       writableSyntax: syntaxFromPath(toFile, options.toSyntax),
       readable: () => fs.createReadStream(file),
       writable: () => fs.createWriteStream(toFile),
-      afterWrite: file !== toFile ? () => unlink(file) : () => Promise.resolve(),
+      afterWrite: file !== toFile ? () => unlink(file) : () => Promise.resolve()
     }
   })
   if (stdin && stdout) {
@@ -79,7 +74,7 @@ export async function formatCommand(
       writableSyntax: options.toSyntax || 'gherkin',
       readable: () => stdin,
       writable: () => stdout,
-      afterWrite: () => Promise.resolve(),
+      afterWrite: () => Promise.resolve()
     })
   }
 
@@ -192,8 +187,7 @@ function syntaxFromPath(file: string, explicitSyntax?: Syntax): Syntax {
   if (path.extname(file) === '.feature') syntax = 'gherkin'
   if (path.extname(file) === '.md') syntax = 'markdown'
   if (!syntax) throw new Error(`Cannot determine syntax from path ${file}`)
-  if (explicitSyntax && explicitSyntax !== syntax)
-    throw new Error(`Cannot treat ${file} as ${explicitSyntax}`)
+  if (explicitSyntax && explicitSyntax !== syntax) throw new Error(`Cannot treat ${file} as ${explicitSyntax}`)
   return syntax
 }
 

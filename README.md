@@ -54,8 +54,10 @@ Gherkin Utils is [available on Maven Central](https://central.sonatype.com/artif
 
 ## Command line
 
+Running Gherkin Utils from the command line provides formatting and conversion features.
+
 ```bash
--> npx @cucumber/gherkin-utils format features
+> npx @cucumber/gherkin-utils format features
 ❌ 7 files failed to format
 🥒 14 files left unchanged
 🥒 25 files reformatted
@@ -102,9 +104,9 @@ This module can also be used as a library. It provides two main utilities, `pret
 This function takes a GherkinDocument as input and returns a pretty-printed representation in Gherkin or Markdown.
 
 ```javascript
-import { AstBuilder, GherkinClassicTokenMatcher,Parser } from "@cucumber/gherkin";
-import { pretty } from "@cucumber/gherkin-utils"
-import { IdGenerator } from "@cucumber/messages"
+import { AstBuilder, GherkinClassicTokenMatcher, Parser } from '@cucumber/gherkin'
+import { pretty } from '@cucumber/gherkin-utils'
+import { IdGenerator } from '@cucumber/messages'
 
 const uuidFn = IdGenerator.uuid()
 
@@ -126,7 +128,7 @@ Feature:
     Given step text
 
 */
-const formattedGherkinMarkdownFeature = pretty(gherkinDocument, "markdown")
+const formattedGherkinMarkdownFeature = pretty(gherkinDocument, 'markdown')
 /*
 # Feature:
 
@@ -156,22 +158,19 @@ By default, all elements are accepted, which means that if you want to do filter
 Here's an example:
 
 ```typescript
-import { GherkinDocumentWalker, rejectAllFilters } from "@cucumber/gherkin-utils"
+import { GherkinDocumentWalker, rejectAllFilters } from '@cucumber/gherkin-utils';
 
 // Only keeps scenarios which name include 'magic'
 const filter = new GherkinDocumentWalker({
   ...rejectAllFilters,
-  ...{ acceptScenario: (scenario) => scenario.name.includes("magic") },
+  ...{ acceptScenario: (scenario) => scenario.name.includes('magic') },
 })
 
 // Makes a list with all the scenario names
-const allScenarioNames: string[] = [];
-const scenarioNameFinder = new GherkinDocumentWalker(
-  {},
-  {
-    handleScenario: (scenario) => allScenarioNames.push(scenario.name),
-  }
-)
+const allScenarioNames: string[] = []
+const scenarioNameFinder = new GherkinDocumentWalker({}, {
+  handleScenario: (scenario) => allScenarioNames.push(scenario.name),
+})
 ```
 
 ## Feedback
