@@ -76,7 +76,7 @@ npx @cucumber/gherkin-utils --help
 
 This module can also be used as a library. It provides two main utilities, `pretty` and `gherkinDocumentWalker`.
 
-### pretty(gherkinDocument: messages.GherkinDocument, syntax: 'gherkin' | 'markdown')
+#### pretty(gherkinDocument: messages.GherkinDocument, syntax: 'gherkin' | 'markdown')
 
 This function takes a GherkinDocument as input and returns a pretty-printed representation in Gherkin or Markdown.
 
@@ -115,7 +115,7 @@ const formattedGherkinMarkdownFeature = pretty(gherkinDocument, 'markdown')
 */
 ```
 
-### GherkinDocumentWalker class
+#### GherkinDocumentWalker class
 
 The GherkinDocumentWalker is a class for walking and filtering the AST produced by Gherkin after parsing a feature file.
 When running `walkGherkinDocument` on a GherkinDocument, it will produce a deep copy of the object.
