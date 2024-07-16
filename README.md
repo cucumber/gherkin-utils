@@ -52,7 +52,9 @@ Gherkin Utils is [available on Maven Central](https://central.sonatype.com/artif
 </dependencies>
 ```
 
-## Command line
+## Usage
+
+### Command line
 
 The command-line tool can be used to format `.feature` files or to translate `.feature` files
 into `.feature.md` files.
@@ -70,7 +72,7 @@ For more details on usage, see the help menu.
 npx @cucumber/gherkin-utils --help
 ```
 
-## As a library
+### As a library
 
 This module can also be used as a library. It provides two main utilities, `pretty` and `gherkinDocumentWalker`.
 
