@@ -11,7 +11,7 @@ export default function pretty(
   let scenarioLevel = 1
   return walkGherkinDocument<string>(gherkinDocument, '', {
     comment(comment, content) {
-      return content.concat(comment.text).concat('\n')
+      return content.concat(prettyComment(comment.text)).concat('\n')
     },
     feature(feature, content) {
       return content
@@ -246,4 +246,9 @@ export function escapeCell(s: string) {
 
 function isNumeric(s: string) {
   return !isNaN(parseFloat(s))
+}
+
+export function prettyComment(comment: string): string {
+  // Ensure space after hashtag in a comment (`# `)
+  return comment.replace(/^(\s*#)(\S)/, '$1 $2').trimEnd()
 }
