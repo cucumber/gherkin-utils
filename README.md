@@ -56,23 +56,37 @@ Gherkin Utils is [available on Maven Central](https://central.sonatype.com/artif
 
 ### Command line
 
-The command-line tool can be used to format `.feature` files or to translate `.feature` files
-into `.feature.md` files.
+To run Gherkin Utils as a formatter, try any of the following:
 
-The following example translates all `.feature` files to `.feature.md` files and then deletes the `.feature` files (see [Markdown with Gherkin](https://github.com/cucumber/common/blob/main/gherkin/MARKDOWN_WITH_GHERKIN.md)).
-**Note**: Globs must be quoted to prevent the shell from expanding the globs.
+```bash
+# Format `file.feature`
+> npx @cucumber/gherkin-utils format features/file.feature
+# Format `file.feature` and `other.feature`
+> npx @cucumber/gherkin-utils format features/file.feature features/other.feature
+# Format feature files directly within `features/`
+> npx @cucumber/gherkin-utils format features/*.feature
+# Format feature files ending with `_test.feature` in `features`
+> npx @cucumber/gherkin-utils format features/*_test.feature
+# Format feature files within immediate subdirectories of `features/`
+> npx @cucumber/gherkin-utils format features/**/*.feature
+```
 
-```console
-npx @cucumber/gherkin-utils format --move "features/**/*.feature" "features/**/*.feature.md"
+To convert gherkin feature files to [Markdown with Gherkin](https://github.com/cucumber/common/blob/main/gherkin/MARKDOWN_WITH_GHERKIN.md) - or the other way around - while formatting, try the following:
+
+```bash
+# Format `file.feature` to gherkin markdown `file.feature.md`
+npx @cucumber/gherkin-utils format --to-syntax=markdown features/file.feature
+# Format `file.feature.md` to gherkin `file.feature`
+npx @cucumber/gherkin-utils format --to-syntax=gherkin features/file.feature.md
 ```
 
 For more details on usage, see the help menu.
 
-```console
+```bash
 npx @cucumber/gherkin-utils --help
 ```
 
-### As a library
+### Library
 
 This module can also be used as a library. It provides two main utilities, `pretty` and `gherkinDocumentWalker`.
 
