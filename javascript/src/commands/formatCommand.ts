@@ -62,7 +62,7 @@ async function convert(fileFormat: FileFormat, language: string) {
     parse(output, fileFormat.writableSyntax, gherkinDocument.feature?.language)
   } catch (err) {
     err.message += `The generated output is not parseable. This is a bug.
-Please report a bug at https://github.com/cucumber/common/issues/new
+Please report a bug at https://github.com/cucumber/gherkin/issues/new/choose
 
 --- Generated ${fileFormat.writableSyntax} source ---
 ${output}

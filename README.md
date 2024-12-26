@@ -71,7 +71,7 @@ To run Gherkin Utils as a formatter, try any of the following:
 > npx @cucumber/gherkin-utils format features/**/*.feature
 ```
 
-To convert gherkin feature files to [Markdown with Gherkin](https://github.com/cucumber/common/blob/main/gherkin/MARKDOWN_WITH_GHERKIN.md) - or the other way around - while formatting, try the following:
+To convert gherkin feature files to [Markdown with Gherkin](https://github.com/cucumber/gherkin/blob/04da83056751a1d4519d3886448e6fd0a6544fe1/MARKDOWN_WITH_GHERKIN.md) - or the other way around - while formatting, try the following:
 
 ```bash
 # Format `file.feature` to gherkin markdown `file.feature.md`
