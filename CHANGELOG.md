@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [9.0.1] - 2025-01-22
 ### Fixed
 - [JavaScript] Amend parse bug report URL in error message
 
@@ -134,7 +136,8 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v9.0.0...HEAD
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v9.0.1...HEAD
+[9.0.1]: https://github.com/cucumber/gherkin-utils/compare/v9.0.0...v9.0.1
 [9.0.0]: https://github.com/cucumber/gherkin-utils/compare/v8.0.6...v9.0.0
 [8.0.6]: https://github.com/cucumber/gherkin-utils/compare/v8.0.5...v8.0.6
 [8.0.5]: https://github.com/cucumber/gherkin-utils/compare/v8.0.4...v8.0.5
