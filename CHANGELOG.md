@@ -6,10 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## Changed
+- Update dependency gherkin to v31
 
 ## [9.1.0] - 2025-01-22
 ### Changed
-- Upgrade Gherkin dependency to 30.x
+- Update dependency gherkin to v30
 
 ## [9.0.1] - 2025-01-22
 ### Fixed
