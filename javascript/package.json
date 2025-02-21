@@ -54,7 +54,7 @@
     "typescript": "5.7.3"
   },
   "dependencies": {
-    "@cucumber/gherkin": "^31.0.0",
+    "@cucumber/gherkin": "^32.0.0",
     "@cucumber/messages": "^27.0.0",
     "@teppeis/multimaps": "3.0.0",
     "commander": "13.1.0",
