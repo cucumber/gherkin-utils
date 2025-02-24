@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/cucumber/gherkin-utils",
   "devDependencies": {
-    "@cucumber/compatibility-kit": "^17.0.0",
+    "@cucumber/compatibility-kit": "^18.0.0",
     "@cucumber/gherkin-streams": "^5.0.1",
     "@cucumber/message-streams": "^4.0.1",
     "@eslint/compat": "^1.2.7",
