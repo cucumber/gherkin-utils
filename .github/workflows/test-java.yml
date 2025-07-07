@@ -5,9 +5,15 @@ on:
     branches:
       - main
       - renovate/**
+    paths:
+      - java/**
+      - .github/**
   pull_request:
     branches:
       - main
+    paths:
+      - java/**
+      - .github/**
   workflow_call:
 
 jobs:
