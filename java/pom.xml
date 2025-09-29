@@ -42,12 +42,10 @@
               <goal>bnd-process</goal>
             </goals>
             <configuration>
-            <bnd>
-            <![CDATA[ 
-            Export-Package: io.cucumber.gherkin.utils.*;-noimport:=true
-            Import-Package: *
-            ]]>
-            </bnd>
+            <bnd><![CDATA[ 
+                Export-Package: ${project.Automatic-Module-Name}.*;-noimport:=true
+                Import-Package: *
+            ]]></bnd>
             </configuration>
           </execution>
         </executions>
