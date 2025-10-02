@@ -5,7 +5,7 @@
   <parent>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-parent</artifactId>
-      <version>4.3.8</version>
+      <version>4.3.9-SNAPSHOT</version>
   </parent>
 
   <artifactId>gherkin-utils</artifactId>
@@ -34,21 +34,6 @@
       <plugin>
         <groupId>biz.aQute.bnd</groupId>
         <artifactId>bnd-maven-plugin</artifactId>
-        <version>6.4.0</version>
-        <executions>
-          <execution>
-            <id>bnd-process</id>
-            <goals>
-              <goal>bnd-process</goal>
-            </goals>
-            <configuration>
-            <bnd><![CDATA[ 
-                Export-Package: ${project.Automatic-Module-Name}.*;-noimport:=true
-                Import-Package: *
-            ]]></bnd>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
