@@ -5,7 +5,7 @@ import fg from 'fast-glob'
 import fs from 'fs'
 import path from 'path'
 
-import pretty, { escapeCell } from '../src/pretty'
+import pretty, { escapeCell, prettyComment } from '../src/pretty'
 import parse from './parse'
 
 const featuresPath = path.resolve(__dirname, '../node_modules/@cucumber/compatibility-kit/features')
@@ -286,6 +286,24 @@ Feature: hello
 
     it('escapes backslash', () => {
       assert.strictEqual(escapeCell('\\'), '\\\\')
+    })
+  })
+
+  describe('prettyComment', () => {
+    it('should add missing space after hashtag', () => {
+      assert.deepStrictEqual(prettyComment('#text'), '# text')
+    })
+    it('should retain leading whitespace', () => {
+      assert.deepStrictEqual(prettyComment('    # text'), '    # text')
+    })
+    it('should trim trailing whitespace', () => {
+      assert.deepStrictEqual(prettyComment('    # text    '), '    # text')
+    })
+    it('should retain spaces between hashtag and text', () => {
+      assert.deepStrictEqual(prettyComment('#    text'), '#    text')
+    })
+    it('should not introduce space after inline hashtag', () => {
+      assert.deepStrictEqual(prettyComment('number #1'), 'number #1')
     })
   })
 })
