@@ -1,6 +1,6 @@
 package io.cucumber.gherkin.utils;
 
 public interface Accumulator {
-    void setDeepestLine(Long line);
-    Long getDeepestLine();
+    void setDeepestLine(Integer line);
+    Integer getDeepestLine();
 }

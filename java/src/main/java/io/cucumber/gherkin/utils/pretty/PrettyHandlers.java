@@ -419,8 +419,8 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
 
     private static int getStringWidth(String s) {
         int width = 0;
-        for (char character : s.toCharArray()) {
-            width += isCJKorFullWidth(character) ? 2 : 1;
+        for (int i = 0, length = s.length(); i < length; i++) {
+            width += isCJKorFullWidth(s.charAt(i)) ? 2 : 1;
         }
         return width;
     }
@@ -435,17 +435,10 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         for (int i = 0; i < s.length(); ++i) {
             char c = s.charAt(i);
             switch (c) {
-                case '\\':
-                    e.append("\\\\");
-                    break;
-                case '\n':
-                    e.append("\\n");
-                    break;
-                case '|':
-                    e.append("\\|");
-                    break;
-                default:
-                    e.append(c);
+                case '\\' -> e.append("\\\\");
+                case '\n' -> e.append("\\n");
+                case '|' -> e.append("\\|");
+                default -> e.append(c);
             }
         }
         return e.toString();
