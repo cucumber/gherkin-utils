@@ -30,7 +30,7 @@
     "@cucumber/compatibility-kit": "^24.0.0",
     "@cucumber/gherkin-streams": "^6.0.0",
     "@cucumber/message-streams": "^4.0.1",
-    "@eslint/compat": "^1.2.7",
+    "@eslint/compat": "^2.0.0",
     "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.21.0",
     "@types/mocha": "10.0.10",
