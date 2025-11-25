@@ -24,6 +24,6 @@ public final class Pretty {
     }
 
     private Pretty() {
-        // utility class
+        /* no-op */
     }
 }
