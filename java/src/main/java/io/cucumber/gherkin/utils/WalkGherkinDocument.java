@@ -85,7 +85,7 @@ public class WalkGherkinDocument<Acc extends Accumulator> {
         return acc;
     }
 
-    private Acc walkTag(Tag tag, GherkinDocumentHandlers<Acc> h, Acc acc, List<Comment> comments) {
+    private Acc walkTag(Tag tag, GherkinDocumentHandlers<Acc> h, Acc acc, @SuppressWarnings("unused") List<Comment> comments) {
         acc.setDeepestLine(tag.getLocation().getLine());
         acc = h.handleTag(tag, acc);
         return acc;
@@ -118,7 +118,7 @@ public class WalkGherkinDocument<Acc extends Accumulator> {
         return acc;
     }
 
-    private Acc walkTableRow(TableRow tableRow, GherkinDocumentHandlers<Acc> h, Acc acc, List<Comment> comments) {
+    private Acc walkTableRow(TableRow tableRow, GherkinDocumentHandlers<Acc> h, Acc acc, @SuppressWarnings("unused") List<Comment> comments) {
         acc.setDeepestLine(tableRow.getLocation().getLine());
         acc = h.handleTableRow(tableRow, acc);
         for (TableCell tableCell : tableRow.getCells()) {

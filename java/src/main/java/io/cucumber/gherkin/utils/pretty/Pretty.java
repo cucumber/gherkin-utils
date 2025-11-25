@@ -5,7 +5,7 @@ import io.cucumber.messages.types.GherkinDocument;
 
 import java.util.ArrayList;
 
-public class Pretty {
+public final class Pretty {
     /**
      * Pretty print a GherkinDocument as either markdown or gherkin.
      *
@@ -24,5 +24,6 @@ public class Pretty {
     }
 
     private Pretty() {
+        /* no-op */
     }
 }

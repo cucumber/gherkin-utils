@@ -3,7 +3,7 @@ package io.cucumber.gherkin.utils.pretty;
 import io.cucumber.gherkin.utils.Accumulator;
 
 class Result implements Accumulator {
-    private Long deepestLine = 0L;
+    private Integer deepestLine = 0;
     private final StringBuilder builder = new StringBuilder();
 
     Result append(String s) {
@@ -12,12 +12,12 @@ class Result implements Accumulator {
     }
 
     @Override
-    public void setDeepestLine(Long line) {
+    public void setDeepestLine(Integer line) {
         deepestLine = line;
     }
 
     @Override
-    public Long getDeepestLine() {
+    public Integer getDeepestLine() {
         return deepestLine;
     }
 
