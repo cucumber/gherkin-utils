@@ -136,7 +136,12 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
     }
 
     private static String prettyLanguageHeader(String language) {
-        return "en".equals(language) ? "" : String.format("# language: %s\n", language);
+        if ("en".equals(language)) {
+            return "";
+        }
+        return """
+                # language: %s
+                """.formatted(language);
     }
 
     private String semiColumnAndName(String name) {
