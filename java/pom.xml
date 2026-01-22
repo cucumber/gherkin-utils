@@ -43,7 +43,7 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>gherkin</artifactId>
-            <version>[38.0.0-SNAPSHOT,39.0.0)</version>
+            <version>[38.0.0,39.0.0)</version>
         </dependency>
 
         <dependency>
