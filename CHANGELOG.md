@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [Java] Set release version to 17 ([#140](https://github.com/cucumber/gherkin-utils/pull/140))
-
+- [Java] Remove redundant dependency on Gherkin ([#157](https://github.com/cucumber/gherkin-utils/pull/157))
 
 ## [10.0.0] - 2025-09-12
 ### Added
