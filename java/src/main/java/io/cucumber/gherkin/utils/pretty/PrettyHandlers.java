@@ -33,7 +33,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
     private final Syntax syntax;
     private int scenarioLevel = 1;
 
-    public PrettyHandlers(List<Comment> comments, Syntax syntax) {
+    PrettyHandlers(List<Comment> comments, Syntax syntax) {
         this.comments = comments;
         this.syntax = syntax;
     }
@@ -136,12 +136,17 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
     }
 
     private static String prettyLanguageHeader(String language) {
-        return "en".equals(language) ? "" : String.format("# language: %s\n", language);
+        if ("en".equals(language)) {
+            return "";
+        }
+        return """
+                # language: %s
+                """.formatted(language);
     }
 
     private String semiColumnAndName(String name) {
         return (name == null || name.isEmpty()) ? ":" : ": " + name;
-	}
+    }
 
     private Result appendScenario(
             Result result,
@@ -151,7 +156,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         appendComments(stepContainer.getLocation(), result, comments, level, true);
         result.append(level == 0 ? "" : "\n");
         appendComments(stepContainer.getLocation(), result, comments, level, false);
-        
+
         List<Tag> tags = stepContainer.getTags() != null ? stepContainer.getTags() : Collections.emptyList();
         int stepCount = stepContainer.getSteps() != null ? stepContainer.getSteps().size() : 0;
         String description = prettyDescription(stepContainer.getDescription(), syntax);
@@ -172,7 +177,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         appendComments(stepContainer.getLocation(), result, comments, level, true);
         result.append(level == 0 ? "" : "\n");
         appendComments(stepContainer.getLocation(), result, comments, level, false);
-        
+
         List<Tag> tags = stepContainer.getTags() != null ? stepContainer.getTags() : Collections.emptyList();
         appendTags(result, tags, syntax, level, comments);
         return result.append(level == 0 ? "" : "\n")
@@ -192,7 +197,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         appendComments(stepContainer.getLocation(), result, comments, level, true);
         result.append(level == 0 ? "" : "\n");
         appendComments(stepContainer.getLocation(), result, comments, level, false);
-        
+
         List<Tag> tags = stepContainer.getTags() != null ? stepContainer.getTags() : Collections.emptyList();
         String description = prettyDescription(stepContainer.getDescription(), syntax);
         appendTags(result, tags, syntax, level, comments);
@@ -213,7 +218,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         appendComments(stepContainer.getLocation(), result, comments, level, true);
         result.append(level == 0 ? "" : "\n");
         appendComments(stepContainer.getLocation(), result, comments, level, false);
-        
+
         List<Tag> tags = stepContainer.getTags() != null ? stepContainer.getTags() : Collections.emptyList();
         String description = prettyDescription(stepContainer.getDescription(), syntax);
         appendTags(result, tags, syntax, level, comments);
@@ -234,7 +239,7 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         appendComments(stepContainer.getLocation(), result, comments, level, true);
         result.append(level == 0 ? "" : "\n");
         appendComments(stepContainer.getLocation(), result, comments, level, false);
-        
+
         int stepCount = stepContainer.getSteps() != null ? stepContainer.getSteps().size() : 0;
         String description = prettyDescription(stepContainer.getDescription(), syntax);
         return result
@@ -356,13 +361,13 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         while (iter.hasNext()) {
             Comment comment = iter.next();
             if (currentLocation.getLine() > comment.getLocation().getLine()) {
-            	if (previousBlock && comment.getText().startsWith(repeatString(level, "  "))) {
-            		// We skip this comment as we are appending previous block comments, and this comment has enough indents
-            		// to be attached to the current block
-            	} else {
-            		res.add(comment);
-            		iter.remove();
-            	}
+                if (previousBlock && comment.getText().startsWith(repeatString(level, "  "))) {
+                    // We skip this comment as we are appending previous block comments, and this comment has enough indents
+                    // to be attached to the current block
+                    continue;
+                }
+                res.add(comment);
+                iter.remove();
             }
         }
         return res;
@@ -396,12 +401,12 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
     }
 
     private Result appendComments(Location location, Result result, List<Comment> comments, int level, boolean previousBlock) {
-    	int actualLevel = previousBlock ? level - 1 : level;
-    	
+        int actualLevel = previousBlock ? level - 1 : level;
+
         for (Comment nextComment : popComments(location, comments, level, previousBlock)) {
             appendComment(actualLevel, result, nextComment);
         }
-        
+
         return result;
     }
 
@@ -419,8 +424,8 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
 
     private static int getStringWidth(String s) {
         int width = 0;
-        for (char character : s.toCharArray()) {
-            width += isCJKorFullWidth(character) ? 2 : 1;
+        for (int i = 0, length = s.length(); i < length; i++) {
+            width += isCJKorFullWidth(s.charAt(i)) ? 2 : 1;
         }
         return width;
     }
@@ -435,17 +440,10 @@ class PrettyHandlers implements GherkinDocumentHandlers<Result> {
         for (int i = 0; i < s.length(); ++i) {
             char c = s.charAt(i);
             switch (c) {
-                case '\\':
-                    e.append("\\\\");
-                    break;
-                case '\n':
-                    e.append("\\n");
-                    break;
-                case '|':
-                    e.append("\\|");
-                    break;
-                default:
-                    e.append(c);
+                case '\\' -> e.append("\\\\");
+                case '\n' -> e.append("\\n");
+                case '|' -> e.append("\\|");
+                default -> e.append(c);
             }
         }
         return e.toString();
