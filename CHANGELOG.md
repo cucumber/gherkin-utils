@@ -6,12 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [11.0.0] - 2026-01-25
+### Added
+- [Java] Add OSGi metadata to manifest
+
 ### Changed
 - [Java] Set release version to 17 ([#140](https://github.com/cucumber/gherkin-utils/pull/140))
 - [Java] Remove redundant dependency on Gherkin ([#157](https://github.com/cucumber/gherkin-utils/pull/157))
-
-### Added
-- [Java] Add OSGi metadata to manifest
 
 ## [10.0.0] - 2025-09-12
 ### Added
@@ -157,7 +159,8 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v10.0.0...HEAD
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v11.0.0...HEAD
+[11.0.0]: https://github.com/cucumber/gherkin-utils/compare/v10.0.0...v11.0.0
 [10.0.0]: https://github.com/cucumber/gherkin-utils/compare/v9.2.0...v10.0.0
 [9.2.0]: https://github.com/cucumber/gherkin-utils/compare/v9.1.0...v9.2.0
 [9.1.0]: https://github.com/cucumber/gherkin-utils/compare/v9.0.1...v9.1.0

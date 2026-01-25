@@ -10,14 +10,14 @@
     </parent>
 
     <artifactId>gherkin-utils</artifactId>
-    <version>10.0.1-SNAPSHOT</version>
+    <version>11.0.0</version>
     <packaging>jar</packaging>
     <name>Gherkin Utils</name>
     <description>Gherkin utils for doing things such as walking a Gherkin tree or pretty printing Gherkin files.
     </description>
 
     <properties>
-        <project.build.outputTimestamp>1757696181</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1769354842</project.build.outputTimestamp>
         <osgi.bundle-symbolic-name>io.cucumber.gherkin.utils</osgi.bundle-symbolic-name>
     </properties>
 
@@ -25,7 +25,7 @@
         <connection>scm:git:git://github.com/cucumber/gherkin-utils.git</connection>
         <developerConnection>scm:git:git@github.com:cucumber/gherkin-utils.git</developerConnection>
         <url>git://github.com/cucumber/gherkin-utils.git</url>
-        <tag>HEAD</tag>
+        <tag>v11.0.0</tag>
     </scm>
 
     <dependencyManagement>
