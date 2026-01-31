@@ -57,7 +57,7 @@
     "@cucumber/gherkin": "^38.0.0",
     "@cucumber/messages": "^32.0.0",
     "@teppeis/multimaps": "3.0.0",
-    "commander": "14.0.2",
+    "commander": "14.0.3",
     "source-map-support": "^0.5.21"
   },
   "directories": {
