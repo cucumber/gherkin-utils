@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import static io.cucumber.gherkin.utils.pretty.Pretty.prettyPrint;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SuppressWarnings("MisleadingEscapedSpace")
 public class PrettyTest {
     @Test
     public void emptyFile() {
