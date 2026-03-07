@@ -7,6 +7,7 @@ export interface IFilters {
   acceptBackground?: (background: messages.Background) => boolean
   acceptRule?: (rule: messages.Rule) => boolean
   acceptFeature?: (feature: messages.Feature) => boolean
+  acceptExamples?: (examples: messages.Examples) => boolean
 }
 
 export interface IHandlers {
@@ -23,6 +24,7 @@ const defaultFilters: IFilters = {
   acceptBackground: () => true,
   acceptRule: () => true,
   acceptFeature: () => true,
+  acceptExamples: () => true,
 }
 
 export const rejectAllFilters: IFilters = {
@@ -31,6 +33,7 @@ export const rejectAllFilters: IFilters = {
   acceptBackground: () => false,
   acceptRule: () => false,
   acceptFeature: () => false,
+  acceptExamples: () => false,
 }
 
 const defaultHandlers: IHandlers = {
@@ -291,7 +294,9 @@ export default class GherkinDocumentWalker {
     const steps = this.walkAllSteps(scenario.steps)
     this.handlers.handleScenario(scenario)
 
-    if (this.filters.acceptScenario(scenario) || steps.find((step) => step !== null)) {
+    const examplesMatch = scenario.examples.some((examples) => this.filters.acceptExamples(examples))
+
+    if (this.filters.acceptScenario(scenario) || steps.find((step) => step !== null) || examplesMatch) {
       return this.copyScenario(scenario)
     }
   }
@@ -303,7 +308,7 @@ export default class GherkinDocumentWalker {
       description: scenario.description,
       location: scenario.location,
       keyword: scenario.keyword,
-      examples: scenario.examples,
+      examples: scenario.examples.filter((examples) => this.filters.acceptExamples(examples)),
       steps: scenario.steps.map((step) => this.copyStep(step)),
       tags: this.copyTags(scenario.tags),
     }
