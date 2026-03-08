@@ -357,6 +357,124 @@ Feature: hello
       assert.deepStrictEqual(newSource, expectedNewSource)
     })
 
+    it('filters examples on a scenario outline', () => {
+      const gherkinDocument = parse(`Feature: Solar System
+
+  Scenario Outline: Planets
+    Given the planet has <property>
+
+    Examples: Habitable
+      | property     |
+      | liquid water |
+
+    Examples: Uninhabitable
+      | property |
+      | no air   |
+`)
+
+      const walker = new GherkinDocumentWalker({
+        ...rejectAllFilters,
+        acceptExamples: (examples) => examples.name === 'Habitable',
+      })
+      const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
+      const expectedNewSource = `Feature: Solar System
+
+  Scenario Outline: Planets
+    Given the planet has <property>
+
+    Examples: Habitable
+      | property     |
+      | liquid water |
+`
+      assert.strictEqual(newSource, expectedNewSource)
+    })
+
+    it('includes all examples when scenario itself is accepted', () => {
+      const gherkinDocument = parse(`Feature: Solar System
+
+  Scenario Outline: Planets
+    Given the planet has <property>
+
+    Examples: Habitable
+      | property     |
+      | liquid water |
+
+    Examples: Uninhabitable
+      | property |
+      | no air   |
+`)
+
+      const walker = new GherkinDocumentWalker({
+        ...rejectAllFilters,
+        acceptScenario: () => true,
+        acceptExamples: (examples) => examples.name === 'Habitable',
+      })
+      const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
+      const expectedNewSource = `Feature: Solar System
+
+  Scenario Outline: Planets
+    Given the planet has <property>
+
+    Examples: Habitable
+      | property     |
+      | liquid water |
+
+    Examples: Uninhabitable
+      | property |
+      | no air   |
+`
+      assert.strictEqual(newSource, expectedNewSource)
+    })
+
+    it('keeps scenario outline when examples match', () => {
+      const gherkinDocument = parse(`Feature: Solar System
+
+  Scenario Outline: Planets
+    Given the planet has <property>
+
+    Examples: Habitable
+      | property     |
+      | liquid water |
+
+  Scenario: Stars
+    Given they are luminous
+`)
+
+      const walker = new GherkinDocumentWalker({
+        ...rejectAllFilters,
+        acceptExamples: (examples) => examples.name === 'Habitable',
+      })
+      const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
+      const expectedNewSource = `Feature: Solar System
+
+  Scenario Outline: Planets
+    Given the planet has <property>
+
+    Examples: Habitable
+      | property     |
+      | liquid water |
+`
+      assert.strictEqual(newSource, expectedNewSource)
+    })
+
+    it('does not keep plain scenarios via acceptExamples', () => {
+      const gherkinDocument = parse(`Feature: Solar System
+
+  Scenario: Earth
+    Given is a planet with liquid water
+`)
+
+      const walker = new GherkinDocumentWalker({
+        ...rejectAllFilters,
+        acceptExamples: () => true,
+      })
+      const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
+      assert.deepEqual(newGherkinDocument, null)
+    })
+
     it('returns null when no hit found', () => {
       const gherkinDocument = parse(`Feature: Solar System
 

@@ -7,6 +7,7 @@ export interface IFilters {
   acceptBackground?: (background: messages.Background) => boolean
   acceptRule?: (rule: messages.Rule) => boolean
   acceptFeature?: (feature: messages.Feature) => boolean
+  acceptExamples?: (examples: messages.Examples) => boolean
 }
 
 export interface IHandlers {
@@ -23,6 +24,7 @@ const defaultFilters: IFilters = {
   acceptBackground: () => true,
   acceptRule: () => true,
   acceptFeature: () => true,
+  acceptExamples: () => true,
 }
 
 export const rejectAllFilters: IFilters = {
@@ -31,6 +33,7 @@ export const rejectAllFilters: IFilters = {
   acceptBackground: () => false,
   acceptRule: () => false,
   acceptFeature: () => false,
+  acceptExamples: () => false,
 }
 
 const defaultHandlers: IHandlers = {
@@ -88,7 +91,7 @@ export default class GherkinDocumentWalker {
           }
           if (child.scenario) {
             return {
-              scenario: this.copyScenario(child.scenario),
+              scenario: this.copyScenario(child.scenario, child.scenario.examples),
             }
           }
           if (child.rule) {
@@ -241,7 +244,7 @@ export default class GherkinDocumentWalker {
       }
       if (child.scenario && scenariosKeptIds.includes(child.scenario.id)) {
         childrenCopy.push({
-          scenario: this.copyScenario(child.scenario),
+          scenario: this.copyScenario(child.scenario, child.scenario.examples),
         })
       }
     }
@@ -292,18 +295,26 @@ export default class GherkinDocumentWalker {
     this.handlers.handleScenario(scenario)
 
     if (this.filters.acceptScenario(scenario) || steps.find((step) => step !== null)) {
-      return this.copyScenario(scenario)
+      return this.copyScenario(scenario, scenario.examples)
+    }
+
+    const keptExamples = scenario.examples.filter((examples) => this.filters.acceptExamples(examples))
+    if (keptExamples.length > 0) {
+      return this.copyScenario(scenario, keptExamples)
     }
   }
 
-  private copyScenario(scenario: messages.Scenario): messages.Scenario {
+  private copyScenario(
+    scenario: messages.Scenario,
+    examples: readonly messages.Examples[]
+  ): messages.Scenario {
     return {
       id: scenario.id,
       name: scenario.name,
       description: scenario.description,
       location: scenario.location,
       keyword: scenario.keyword,
-      examples: scenario.examples,
+      examples,
       steps: scenario.steps.map((step) => this.copyStep(step)),
       tags: this.copyTags(scenario.tags),
     }
