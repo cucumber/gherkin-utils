@@ -298,7 +298,9 @@ export default class GherkinDocumentWalker {
       return this.copyScenario(scenario, scenario.examples)
     }
 
-    const keptExamples = scenario.examples.filter((examples) => this.filters.acceptExamples(examples))
+    const keptExamples = scenario.examples.filter((examples) =>
+      this.filters.acceptExamples(examples)
+    )
     if (keptExamples.length > 0) {
       return this.copyScenario(scenario, keptExamples)
     }
