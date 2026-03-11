@@ -14,7 +14,6 @@ on:
     paths:
       - javascript/**
       - .github/**
-  workflow_call:
 
 jobs:
   test-javascript:

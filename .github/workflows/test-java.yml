@@ -14,7 +14,6 @@ on:
     paths:
       - java/**
       - .github/**
-  workflow_call:
 
 jobs:
   test-java:
