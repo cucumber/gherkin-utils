@@ -32,7 +32,7 @@
     "@cucumber/message-streams": "^4.0.1",
     "@eslint/js": "^10.0.0",
     "@types/mocha": "10.0.10",
-    "@types/node": "22.19.15",
+    "@types/node": "22.19.17",
     "@typescript-eslint/eslint-plugin": "8.58.0",
     "@typescript-eslint/parser": "8.58.0",
     "ajv": "8.18.0",
