@@ -35,7 +35,7 @@
     "@types/node": "22.19.17",
     "@typescript-eslint/eslint-plugin": "8.59.0",
     "@typescript-eslint/parser": "8.59.0",
-    "ajv": "8.18.0",
+    "ajv": "8.20.0",
     "ajv-cli": "5.0.0",
     "eslint": "^10.0.0",
     "eslint-plugin-import": "^2.31.0",
