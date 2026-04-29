@@ -1,4 +1,4 @@
-import * as messages from '@cucumber/messages'
+import type * as messages from '@cucumber/messages'
 
 import { walkGherkinDocument } from './walkGherkinDocument'
 
@@ -76,7 +76,7 @@ function prettyLanguageHeader(language: string | undefined): string {
 }
 
 function semiColumnName(name: string | null): string {
-  return name == null || name.length == 0 ? ':' : ': ' + name
+  return name == null || name.length === 0 ? ':' : `: ${name}`
 }
 
 function prettyKeywordContainer(
@@ -106,22 +106,22 @@ function prettyKeywordContainer(
 
 function prettyDescription(description: string, syntax: Syntax): string {
   if (!description) return ''
-  if (syntax === 'gherkin') return description + '\n'
-  else return description.replace(/^\s*/gm, '') + '\n'
+  if (syntax === 'gherkin') return `${description}\n`
+  else return `${description.replace(/^\s*/gm, '')}\n`
 }
 
 function prettyTags(tags: readonly messages.Tag[], syntax: Syntax, level: number): string {
-  if (tags === undefined || tags.length == 0) {
+  if (tags === undefined || tags.length === 0) {
     return ''
   }
   const prefix = syntax === 'gherkin' ? spaces(level) : ''
   const tagQuote = syntax === 'gherkin' ? '' : '`'
-  return prefix + tags.map((tag) => `${tagQuote}${tag.name}${tagQuote}`).join(' ') + '\n'
+  return `${prefix + tags.map((tag) => `${tagQuote}${tag.name}${tagQuote}`).join(' ')}\n`
 }
 
 function keywordPrefix(level: number, syntax: Syntax): string {
   if (syntax === 'markdown') {
-    return new Array(level + 2).join('#') + ' '
+    return `${new Array(level + 2).join('#')} `
   } else {
     return spaces(level)
   }
@@ -149,7 +149,7 @@ function makeDocStringDelimiter(syntax: Syntax, docString: messages.DocString) {
   // https://github.github.com/gfm/#fenced-code-blocks
   const threeOrMoreBackticks = /(```+)/g
   let maxContentBackTickCount = 2
-  let match
+  let match: RegExpExecArray | null
   do {
     match = threeOrMoreBackticks.exec(docString.content)
     if (match) {
@@ -180,7 +180,7 @@ function prettyTableRows(
     if (n === 0 && syntax === 'markdown') {
       const separatorRow: messages.TableRow = {
         location: row.location,
-        id: row.id + '-separator',
+        id: `${row.id}-separator`,
         cells: row.cells.map((cell, j) => ({
           location: cell.location,
           value: new Array(maxWidths[j] + 1).join('-'),
@@ -245,5 +245,5 @@ export function escapeCell(s: string) {
 }
 
 function isNumeric(s: string) {
-  return !isNaN(parseFloat(s))
+  return !Number.isNaN(parseFloat(s))
 }

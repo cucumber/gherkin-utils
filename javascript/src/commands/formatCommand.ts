@@ -1,3 +1,7 @@
+import fs, { unlink as unlinkCb } from 'node:fs'
+import path from 'node:path'
+import type { Readable, Writable } from 'node:stream'
+import { promisify } from 'node:util'
 import {
   AstBuilder,
   GherkinClassicTokenMatcher,
@@ -5,12 +9,8 @@ import {
   Parser,
 } from '@cucumber/gherkin'
 import * as messages from '@cucumber/messages'
-import fs, { unlink as unlinkCb } from 'fs'
-import path from 'path'
-import { Readable, Writable } from 'stream'
-import { promisify } from 'util'
 
-import pretty, { Syntax } from '../pretty'
+import pretty, { type Syntax } from '../pretty'
 
 const unlink = promisify(unlinkCb)
 
@@ -102,7 +102,7 @@ async function read(readable: Readable): Promise<string> {
 function syntaxPath(file: string, syntax: Syntax): string {
   if (syntax === 'markdown') {
     if (syntaxFromPath(file) === 'markdown') return file
-    return file + '.md'
+    return `${file}.md`
   }
 
   if (syntax === 'gherkin') {

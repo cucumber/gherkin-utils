@@ -1,9 +1,9 @@
+import assert from 'node:assert'
+import fs from 'node:fs'
+import path from 'node:path'
 import { GherkinClassicTokenMatcher, GherkinInMarkdownTokenMatcher } from '@cucumber/gherkin'
-import * as messages from '@cucumber/messages'
-import assert from 'assert'
+import type * as messages from '@cucumber/messages'
 import fg from 'fast-glob'
-import fs from 'fs'
-import path from 'path'
 
 import pretty, { escapeCell } from '../src/pretty'
 import parse from './parse'

@@ -1,7 +1,7 @@
 import { Command, Option } from 'commander'
 
 import { version } from '../package.json'
-import { formatCommand, FormatOptions } from './commands/formatCommand'
+import { type FormatOptions, formatCommand } from './commands/formatCommand'
 
 const program = new Command()
 program.version(version)

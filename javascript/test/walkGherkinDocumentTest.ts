@@ -1,6 +1,6 @@
-import assert from 'assert'
+import assert from 'node:assert'
 
-import { GherkinDocumentHandlers, walkGherkinDocument } from '../src'
+import { type GherkinDocumentHandlers, walkGherkinDocument } from '../src'
 import parse from './parse'
 
 describe('walkGherkinDocument', () => {
@@ -45,10 +45,10 @@ describe('walkGherkinDocument', () => {
 
     const handlers: GherkinDocumentHandlers<string[]> = {
       comment: (comment, acc) => acc.concat(comment.text.trim()),
-      dataTable: (dataTable, acc) => acc,
+      dataTable: (_dataTable, acc) => acc,
       docString: (docString, acc) => acc.concat(docString.content),
       tableCell: (tableCell, acc) => acc.concat(tableCell.value),
-      tableRow: (tableRow, acc) => acc,
+      tableRow: (_tableRow, acc) => acc,
       tag: (tag, acc) => acc.concat(tag.name.substring(1)),
       feature: (feature, acc) => acc.concat(feature.name),
       background: (background, acc) => acc.concat(background.name),
@@ -59,6 +59,9 @@ describe('walkGherkinDocument', () => {
     }
 
     const names = walkGherkinDocument<string[]>(gherkinDocument, [], handlers)
-    assert.deepEqual(names, '#1 A B #2 C #3 D E #4 F G H #5 I J K L M N O P #6 Q R S T U V W'.split(' '))
+    assert.deepEqual(
+      names,
+      '#1 A B #2 C #3 D E #4 F G H #5 I J K L M N O P #6 Q R S T U V W'.split(' ')
+    )
   })
 })

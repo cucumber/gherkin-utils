@@ -1,6 +1,6 @@
-import * as messages from '@cucumber/messages'
+import type * as messages from '@cucumber/messages'
 
-import { GherkinDocumentHandlers } from './GherkinDocumentHandlers'
+import type { GherkinDocumentHandlers } from './GherkinDocumentHandlers'
 
 /**
  * Walks a Gherkin Document, visiting each node depth first (in the order they appear in the source)
@@ -124,40 +124,40 @@ export function walkGherkinDocument<Acc>(
 
 function makeDefaultHandlers<Acc>() {
   const defaultHandlers: GherkinDocumentHandlers<Acc> = {
-    feature(feature, acc) {
+    feature(_feature, acc) {
       return acc
     },
-    background(background, acc) {
+    background(_background, acc) {
       return acc
     },
-    rule(rule, acc) {
+    rule(_rule, acc) {
       return acc
     },
-    scenario(scenario, acc) {
+    scenario(_scenario, acc) {
       return acc
     },
-    step(step, acc) {
+    step(_step, acc) {
       return acc
     },
-    examples(examples, acc) {
+    examples(_examples, acc) {
       return acc
     },
-    tag(tag, acc) {
+    tag(_tag, acc) {
       return acc
     },
-    comment(comment, acc) {
+    comment(_comment, acc) {
       return acc
     },
-    dataTable(dataTable, acc) {
+    dataTable(_dataTable, acc) {
       return acc
     },
-    tableRow(tableRow, acc) {
+    tableRow(_tableRow, acc) {
       return acc
     },
-    tableCell(tableCell, acc) {
+    tableCell(_tableCell, acc) {
       return acc
     },
-    docString(docString, acc) {
+    docString(_docString, acc) {
       return acc
     },
   }

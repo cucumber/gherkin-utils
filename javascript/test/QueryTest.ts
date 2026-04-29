@@ -1,8 +1,8 @@
+import assert from 'node:assert'
+import { pipeline, type Readable, Writable } from 'node:stream'
+import { promisify } from 'node:util'
 import { GherkinStreams } from '@cucumber/gherkin-streams'
 import * as messages from '@cucumber/messages'
-import assert from 'assert'
-import { pipeline, Readable, Writable } from 'stream'
-import { promisify } from 'util'
 
 import Query from '../src/Query'
 
@@ -202,7 +202,7 @@ describe('Query', () => {
       objectMode: true,
       write(
         envelope: messages.Envelope,
-        encoding: string,
+        _encoding: string,
         callback: (error?: Error | null) => void
       ): void {
         envelopes.push(envelope)

@@ -1,5 +1,5 @@
 // This file is DEPRECATED - use ./walkGherkinDocument instead
-import * as messages from '@cucumber/messages'
+import type * as messages from '@cucumber/messages'
 
 export interface IFilters {
   acceptScenario?: (scenario: messages.Scenario) => boolean
@@ -96,6 +96,7 @@ export default class GherkinDocumentWalker {
               rule: this.copyRule(child.rule, child.rule.children),
             }
           }
+          return child
         })
       )
     }

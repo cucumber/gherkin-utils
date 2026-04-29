@@ -1,4 +1,4 @@
-import assert from 'assert'
+import assert from 'node:assert'
 
 import GherkinDocumentWalker, { rejectAllFilters } from '../src/GherkinDocumentWalker'
 import pretty from '../src/pretty'
