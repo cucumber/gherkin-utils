@@ -1,7 +1,7 @@
 import {
   AstBuilder,
   GherkinClassicTokenMatcher,
-  GherkinInMarkdownTokenMatcher,
+  type GherkinInMarkdownTokenMatcher,
   Parser,
 } from '@cucumber/gherkin'
 import * as messages from '@cucumber/messages'

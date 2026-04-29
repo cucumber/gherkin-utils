@@ -1,25 +1,25 @@
-import assert from 'assert'
+import assert from 'node:assert'
 import {
   existsSync,
   mkdir as mkdirCb,
   mkdtemp as mkdtempCb,
   readFile as readFileCb,
   writeFile as writeFileCb,
-} from 'fs'
-import os from 'os'
-import { Readable, Writable } from 'stream'
-import { promisify } from 'util'
+} from 'node:fs'
+import os from 'node:os'
+import { Readable, Writable } from 'node:stream'
+import { promisify } from 'node:util'
 
 import { formatCommand } from '../../src/commands/formatCommand'
 
 const mkdtemp = promisify(mkdtempCb)
-const mkdir = promisify(mkdirCb)
+const _mkdir = promisify(mkdirCb)
 const writeFile = promisify(writeFileCb)
 const readFile = promisify(readFileCb)
 
 class BufStream extends Writable {
   public buf = Buffer.alloc(0)
-  _write(chunk: Buffer, encoding: BufferEncoding, callback: (error?: Error | null) => void) {
+  _write(chunk: Buffer, _encoding: BufferEncoding, callback: (error?: Error | null) => void) {
     this.buf = Buffer.concat([this.buf, chunk])
     callback()
   }
@@ -28,20 +28,20 @@ class BufStream extends Writable {
 describe('formatCommand', () => {
   let tmpdir: string
   beforeEach(async () => {
-    tmpdir = await mkdtemp(os.tmpdir() + '/')
+    tmpdir = await mkdtemp(`${os.tmpdir()}/`)
   })
 
   it('formats STDIN Gherkin to STDOUT Markdown', async () => {
     const stdin = Readable.from(Buffer.from('Feature: Hello\n'))
     const stdout = new BufStream()
-    await formatCommand([], stdin, stdout, {fromSyntax: 'gherkin', toSyntax: 'markdown'})
+    await formatCommand([], stdin, stdout, { fromSyntax: 'gherkin', toSyntax: 'markdown' })
     assert.deepStrictEqual(stdout.buf.toString('utf-8'), '# Feature: Hello\n')
   })
 
   it('formats STDIN Markdown to STDOUT Gherkin', async () => {
     const stdin = Readable.from(Buffer.from('# Feature: Hello\n'))
     const stdout = new BufStream()
-    await formatCommand([], stdin, stdout, {fromSyntax: 'markdown', toSyntax: 'gherkin'})
+    await formatCommand([], stdin, stdout, { fromSyntax: 'markdown', toSyntax: 'gherkin' })
     assert.deepStrictEqual(stdout.buf.toString('utf-8'), 'Feature: Hello\n')
   })
 
@@ -69,7 +69,7 @@ describe('formatCommand', () => {
 
     const toPath = `${tmpdir}/source.feature.md`
 
-    await formatCommand([fromPath], null, null, {toSyntax: 'markdown'})
+    await formatCommand([fromPath], null, null, { toSyntax: 'markdown' })
     const markdown = await readFile(toPath, 'utf-8')
     assert.deepStrictEqual(markdown, '# Feature: Hello\n')
     assert(!existsSync(fromPath))
@@ -81,7 +81,7 @@ describe('formatCommand', () => {
 
     const toPath = `${tmpdir}/source.feature`
 
-    await formatCommand([fromPath], null, null, {toSyntax: 'gherkin'})
+    await formatCommand([fromPath], null, null, { toSyntax: 'gherkin' })
     const markdown = await readFile(toPath, 'utf-8')
     assert.deepStrictEqual(markdown, 'Feature: Hello\n')
     assert(!existsSync(fromPath))
@@ -89,6 +89,6 @@ describe('formatCommand', () => {
 
   it('throws an error when fromSyntax inconsitent with file extension', async () => {
     const fromPath = `${tmpdir}/source.feature.md`
-    await assert.rejects(formatCommand([fromPath], null, null, {fromSyntax: 'gherkin'}))
+    await assert.rejects(formatCommand([fromPath], null, null, { fromSyntax: 'gherkin' }))
   })
 })

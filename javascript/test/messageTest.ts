@@ -1,11 +1,11 @@
+import assert from 'node:assert'
+import fs from 'node:fs'
+import { pipeline, Writable } from 'node:stream'
+import { promisify } from 'node:util'
 import { NdjsonToMessageStream } from '@cucumber/message-streams'
-import * as messages from '@cucumber/messages'
-import assert from 'assert'
+import type * as messages from '@cucumber/messages'
 import fg from 'fast-glob'
 import { convertWindowsPathToPattern } from 'fast-glob/out/utils/path'
-import fs from 'fs'
-import { pipeline,Writable } from 'stream'
-import { promisify } from 'util'
 
 import { GherkinDocumentWalker } from '../src'
 
