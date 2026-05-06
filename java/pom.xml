@@ -52,6 +52,13 @@
             <artifactId>gherkin</artifactId>
             <version>39.0.0</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <!-- Don't let Gherkin downgrade messages -->
+                    <groupId>io.cucumber</groupId>
+                    <artifactId>messages</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
