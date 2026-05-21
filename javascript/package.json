@@ -37,7 +37,7 @@
     "ajv": "8.20.0",
     "ajv-cli": "5.0.0",
     "fast-glob": "3.3.3",
-    "mocha": "11.7.5",
+    "mocha": "11.7.6",
     "pretty-quick": "4.2.2",
     "rimraf": "^6.0.0",
     "ts-node": "10.9.2",
