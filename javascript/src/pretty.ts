@@ -245,5 +245,5 @@ export function escapeCell(s: string) {
 }
 
 function isNumeric(s: string) {
-  return !Number.isNaN(parseFloat(s))
+  return !Number.isNaN(Number(s))
 }
