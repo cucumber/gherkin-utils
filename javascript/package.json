@@ -28,7 +28,7 @@
   "homepage": "https://github.com/cucumber/gherkin-utils",
   "devDependencies": {
     "@biomejs/biome": "^2.4.13",
-    "@cucumber/biome-config": "github:cucumber/biome-config#v0.1.0",
+    "@cucumber/biome-config": "github:cucumber/biome-config#v0.2.1",
     "@cucumber/compatibility-kit": "^29.0.0",
     "@cucumber/gherkin-streams": "^6.0.0",
     "@cucumber/message-streams": "^4.0.1",
