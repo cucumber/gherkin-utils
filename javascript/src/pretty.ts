@@ -105,9 +105,14 @@ function prettyKeywordContainer(
 }
 
 function prettyDescription(description: string, syntax: Syntax): string {
-  if (!description) return ''
-  if (syntax === 'gherkin') return `${description}\n`
-  else return `${description.replace(/^\s*/gm, '')}\n`
+  if (!description) {
+    return ''
+  }
+  if (syntax === 'gherkin') {
+    return `${description}\n`
+  } else {
+    return `${description.replace(/^\s*/gm, '')}\n`
+  }
 }
 
 function prettyTags(tags: readonly messages.Tag[], syntax: Syntax, level: number): string {
@@ -165,7 +170,9 @@ function prettyTableRows(
   syntax: Syntax,
   level: number
 ): string {
-  if (tableRows.length === 0) return ''
+  if (tableRows.length === 0) {
+    return ''
+  }
   const maxWidths: number[] = new Array(tableRows[0].cells.length).fill(0)
   tableRows.forEach((tableRow) => {
     tableRow.cells.forEach((tableCell, j) => {
