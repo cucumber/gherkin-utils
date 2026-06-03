@@ -1,10 +1,16 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "@tsconfig/recommended/tsconfig.json",
+  "include": ["src", "test"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "noEmit": true
-  },
-  "ts-node": {
-    "files": true
+    "lib": ["es2024"],
+    "target": "es2024",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node", "mocha"],
+    "strictNullChecks": false,
+    "useUnknownInCatchVariables": false,
+    "declaration": true,
+    "inlineSourceMap": true,
+    "inlineSources": true
   }
 }
