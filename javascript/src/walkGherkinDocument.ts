@@ -20,7 +20,9 @@ export function walkGherkinDocument<Acc>(
   const h: GherkinDocumentHandlers<Acc> = { ...makeDefaultHandlers<Acc>(), ...handlers }
   const feature = gherkinDocument.feature
   acc = walkComments(popCommentsUntil(feature?.location), acc)
-  if (!feature) return acc
+  if (!feature) {
+    return acc
+  }
   acc = walkTags(feature.tags || [], acc)
   acc = h.feature(feature, acc)
 

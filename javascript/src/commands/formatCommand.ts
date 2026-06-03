@@ -83,7 +83,9 @@ ${output}
 }
 
 function parse(source: string, syntax: Syntax, language: string) {
-  if (!syntax) throw new Error('No syntax')
+  if (!syntax) {
+    throw new Error('No syntax')
+  }
   const fromParser = new Parser(
     new AstBuilder(messages.IdGenerator.uuid()),
     syntax === 'gherkin'
@@ -95,18 +97,24 @@ function parse(source: string, syntax: Syntax, language: string) {
 
 async function read(readable: Readable): Promise<string> {
   const chunks = []
-  for await (const chunk of readable) chunks.push(chunk)
+  for await (const chunk of readable) {
+    chunks.push(chunk)
+  }
   return Buffer.concat(chunks).toString('utf-8')
 }
 
 function syntaxPath(file: string, syntax: Syntax): string {
   if (syntax === 'markdown') {
-    if (syntaxFromPath(file) === 'markdown') return file
+    if (syntaxFromPath(file) === 'markdown') {
+      return file
+    }
     return `${file}.md`
   }
 
   if (syntax === 'gherkin') {
-    if (syntaxFromPath(file) === 'gherkin') return file
+    if (syntaxFromPath(file) === 'gherkin') {
+      return file
+    }
     return file.replace(/\.feature\.md/, '.feature')
   }
 
@@ -115,10 +123,17 @@ function syntaxPath(file: string, syntax: Syntax): string {
 
 function syntaxFromPath(file: string, explicitSyntax?: Syntax): Syntax {
   let syntax: Syntax
-  if (path.extname(file) === '.feature') syntax = 'gherkin'
-  if (path.extname(file) === '.md') syntax = 'markdown'
-  if (!syntax) throw new Error(`Cannot determine syntax from path ${file}`)
-  if (explicitSyntax && explicitSyntax !== syntax)
+  if (path.extname(file) === '.feature') {
+    syntax = 'gherkin'
+  }
+  if (path.extname(file) === '.md') {
+    syntax = 'markdown'
+  }
+  if (!syntax) {
+    throw new Error(`Cannot determine syntax from path ${file}`)
+  }
+  if (explicitSyntax && explicitSyntax !== syntax) {
     throw new Error(`Cannot treat ${file} as ${explicitSyntax}`)
+  }
   return syntax
 }
