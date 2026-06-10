@@ -1,6 +1,6 @@
 import type * as messages from '@cucumber/messages'
 
-import { walkGherkinDocument } from './walkGherkinDocument'
+import { walkGherkinDocument } from './walkGherkinDocument.js'
 
 export type Syntax = 'markdown' | 'gherkin'
 

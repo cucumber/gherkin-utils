@@ -1,8 +1,8 @@
-export * from './GherkinDocumentHandlers'
-export * from './walkGherkinDocument'
+export * from './GherkinDocumentHandlers.js'
+export * from './walkGherkinDocument.js'
 
-import GherkinDocumentWalker, { rejectAllFilters } from './GherkinDocumentWalker'
-import pretty from './pretty'
-import Query from './Query'
+import GherkinDocumentWalker, { rejectAllFilters } from './GherkinDocumentWalker.js'
+import pretty from './pretty.js'
+import Query from './Query.js'
 
 export { GherkinDocumentWalker, pretty, Query, rejectAllFilters }

@@ -10,7 +10,7 @@ import {
 } from '@cucumber/gherkin'
 import * as messages from '@cucumber/messages'
 
-import pretty, { type Syntax } from '../pretty'
+import pretty, { type Syntax } from '../pretty.js'
 
 const unlink = promisify(unlinkCb)
 
