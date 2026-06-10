@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- BREAKING CHANGE: [JavaScript] Switch to ESM ([#185](https://github.com/cucumber/gherkin-utils/pull/185))
 
 ## [11.0.0] - 2026-01-25
 ### Added
