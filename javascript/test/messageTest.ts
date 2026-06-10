@@ -5,14 +5,14 @@ import { promisify } from 'node:util'
 import { NdjsonToMessageStream } from '@cucumber/message-streams'
 import type * as messages from '@cucumber/messages'
 import fg from 'fast-glob'
-import { convertWindowsPathToPattern } from 'fast-glob/out/utils/path'
+import { convertWindowsPathToPattern } from 'fast-glob/out/utils/path.js'
 
-import { GherkinDocumentWalker } from '../src'
+import { GherkinDocumentWalker } from '../src/index.js'
 
 const asyncPipeline = promisify(pipeline)
 
 describe('Walking with messages', () => {
-  const currentDir = convertWindowsPathToPattern(__dirname)
+  const currentDir = convertWindowsPathToPattern(import.meta.dirname)
   const localMessageFiles = fg.sync(`${currentDir}/messages/**/*.ndjson`)
   const tckMessageFiles = fg.sync(
     `${currentDir}/../node_modules/@cucumber/compatibility-kit/features/**/*.ndjson`

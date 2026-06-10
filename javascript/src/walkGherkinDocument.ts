@@ -1,6 +1,6 @@
 import type * as messages from '@cucumber/messages'
 
-import type { GherkinDocumentHandlers } from './GherkinDocumentHandlers'
+import type { GherkinDocumentHandlers } from './GherkinDocumentHandlers.js'
 
 /**
  * Walks a Gherkin Document, visiting each node depth first (in the order they appear in the source)

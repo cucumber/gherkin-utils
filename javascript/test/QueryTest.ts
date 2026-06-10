@@ -4,7 +4,7 @@ import { promisify } from 'node:util'
 import { GherkinStreams } from '@cucumber/gherkin-streams'
 import * as messages from '@cucumber/messages'
 
-import Query from '../src/Query'
+import Query from '../src/Query.js'
 
 const pipelinePromise = promisify(pipeline)
 

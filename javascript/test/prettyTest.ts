@@ -5,10 +5,13 @@ import { GherkinClassicTokenMatcher, GherkinInMarkdownTokenMatcher } from '@cucu
 import type * as messages from '@cucumber/messages'
 import fg from 'fast-glob'
 
-import pretty, { escapeCell } from '../src/pretty'
-import parse from './parse'
+import pretty, { escapeCell } from '../src/pretty.js'
+import parse from './parse.js'
 
-const featuresPath = path.resolve(__dirname, '../node_modules/@cucumber/compatibility-kit/features')
+const featuresPath = path.resolve(
+  import.meta.dirname,
+  '../node_modules/@cucumber/compatibility-kit/features'
+)
 
 describe('pretty', () => {
   it('renders an empty file', () => {
@@ -256,7 +259,7 @@ Feature: hello
 
   const featureFiles = fg.sync(`${featuresPath}/**/*.feature`)
   for (const featureFile of featureFiles) {
-    const relativePath = path.relative(__dirname, featureFile)
+    const relativePath = path.relative(import.meta.dirname, featureFile)
     it(`renders ${relativePath}`, () => {
       const gherkinSource = fs.readFileSync(featureFile, 'utf-8')
       const gherkinDocument = parse(gherkinSource, new GherkinClassicTokenMatcher())

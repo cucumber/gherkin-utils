@@ -10,7 +10,7 @@ import os from 'node:os'
 import { Readable, Writable } from 'node:stream'
 import { promisify } from 'node:util'
 
-import { formatCommand } from '../../src/commands/formatCommand'
+import { formatCommand } from '../../src/commands/formatCommand.js'
 
 const mkdtemp = promisify(mkdtempCb)
 const _mkdir = promisify(mkdirCb)

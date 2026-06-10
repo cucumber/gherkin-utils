@@ -1,10 +1,10 @@
 import { Command, Option } from 'commander'
 
-import { version } from '../package.json'
-import { type FormatOptions, formatCommand } from './commands/formatCommand'
+import pkg from '../package.json' with { type: 'json' }
+import { type FormatOptions, formatCommand } from './commands/formatCommand.js'
 
 const program = new Command()
-program.version(version)
+program.version(pkg.version)
 
 program
   .command('format')
