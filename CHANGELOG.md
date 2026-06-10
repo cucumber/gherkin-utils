@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [12.0.0] - 2026-06-10
 ### Changed
 - BREAKING CHANGE: [JavaScript] Switch to ESM ([#185](https://github.com/cucumber/gherkin-utils/pull/185))
 
@@ -161,7 +163,8 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v11.0.0...HEAD
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v12.0.0...HEAD
+[12.0.0]: https://github.com/cucumber/gherkin-utils/compare/v11.0.0...v12.0.0
 [11.0.0]: https://github.com/cucumber/gherkin-utils/compare/v10.0.0...v11.0.0
 [10.0.0]: https://github.com/cucumber/gherkin-utils/compare/v9.2.0...v10.0.0
 [9.2.0]: https://github.com/cucumber/gherkin-utils/compare/v9.1.0...v9.2.0
