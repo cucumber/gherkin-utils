@@ -32,7 +32,7 @@
     "@biomejs/biome": "^2.4.13",
     "@cucumber/biome-config": "github:cucumber/biome-config#v0.2.1",
     "@cucumber/compatibility-kit": "^29.0.0",
-    "@cucumber/gherkin-streams": "^6.0.0",
+    "@cucumber/gherkin-streams": "^7.0.0",
     "@cucumber/message-streams": "^5.0.0",
     "@tsconfig/recommended": "^1.0.13",
     "@types/mocha": "10.0.10",
