@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [12.0.1] - 2026-06-21
 ### Fixed
 - [JavaScript] Remove namespace imports from messages
 
@@ -165,7 +167,8 @@ Run `npx @cucumber/gherkin-utils --help` for details about usage.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v12.0.0...HEAD
+[Unreleased]: https://github.com/cucumber/gherkin-utils/compare/v12.0.1...HEAD
+[12.0.1]: https://github.com/cucumber/gherkin-utils/compare/v12.0.0...v12.0.1
 [12.0.0]: https://github.com/cucumber/gherkin-utils/compare/v11.0.0...v12.0.0
 [11.0.0]: https://github.com/cucumber/gherkin-utils/compare/v10.0.0...v11.0.0
 [10.0.0]: https://github.com/cucumber/gherkin-utils/compare/v9.2.0...v10.0.0
