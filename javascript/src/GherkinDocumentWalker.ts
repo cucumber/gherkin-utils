@@ -1,20 +1,30 @@
 // This file is DEPRECATED - use ./walkGherkinDocument instead
-import type * as messages from '@cucumber/messages'
+import type {
+  Background,
+  Feature,
+  FeatureChild,
+  GherkinDocument,
+  Rule,
+  RuleChild,
+  Scenario,
+  Step,
+  Tag,
+} from '@cucumber/messages'
 
 export interface IFilters {
-  acceptScenario?: (scenario: messages.Scenario) => boolean
-  acceptStep?: (step: messages.Step) => boolean
-  acceptBackground?: (background: messages.Background) => boolean
-  acceptRule?: (rule: messages.Rule) => boolean
-  acceptFeature?: (feature: messages.Feature) => boolean
+  acceptScenario?: (scenario: Scenario) => boolean
+  acceptStep?: (step: Step) => boolean
+  acceptBackground?: (background: Background) => boolean
+  acceptRule?: (rule: Rule) => boolean
+  acceptFeature?: (feature: Feature) => boolean
 }
 
 export interface IHandlers {
-  handleStep?: (step: messages.Step) => void
-  handleScenario?: (scenario: messages.Scenario) => void
-  handleBackground?: (background: messages.Background) => void
-  handleRule?: (rule: messages.Rule) => void
-  handleFeature?: (feature: messages.Feature) => void
+  handleStep?: (step: Step) => void
+  handleScenario?: (scenario: Scenario) => void
+  handleBackground?: (background: Background) => void
+  handleRule?: (rule: Rule) => void
+  handleFeature?: (feature: Feature) => void
 }
 
 const defaultFilters: IFilters = {
@@ -50,9 +60,7 @@ export default class GherkinDocumentWalker {
     this.handlers = { ...defaultHandlers, ...handlers }
   }
 
-  public walkGherkinDocument(
-    gherkinDocument: messages.GherkinDocument
-  ): messages.GherkinDocument | null {
+  public walkGherkinDocument(gherkinDocument: GherkinDocument): GherkinDocument | null {
     if (!gherkinDocument.feature) {
       return null
     }
@@ -70,7 +78,7 @@ export default class GherkinDocumentWalker {
     }
   }
 
-  protected walkFeature(feature: messages.Feature): messages.Feature {
+  protected walkFeature(feature: Feature): Feature {
     const keptChildren = this.walkFeatureChildren(feature.children)
 
     this.handlers.handleFeature(feature)
@@ -106,10 +114,7 @@ export default class GherkinDocumentWalker {
     }
   }
 
-  private copyFeature(
-    feature: messages.Feature,
-    children: messages.FeatureChild[]
-  ): messages.Feature {
+  private copyFeature(feature: Feature, children: FeatureChild[]): Feature {
     return {
       children: this.filterFeatureChildren(feature, children),
       location: feature.location,
@@ -121,7 +126,7 @@ export default class GherkinDocumentWalker {
     }
   }
 
-  private copyTags(tags: readonly messages.Tag[]): messages.Tag[] {
+  private copyTags(tags: readonly Tag[]): Tag[] {
     return tags.map((tag) => ({
       name: tag.name,
       id: tag.id,
@@ -129,11 +134,8 @@ export default class GherkinDocumentWalker {
     }))
   }
 
-  private filterFeatureChildren(
-    feature: messages.Feature,
-    children: messages.FeatureChild[]
-  ): messages.FeatureChild[] {
-    const copyChildren: messages.FeatureChild[] = []
+  private filterFeatureChildren(feature: Feature, children: FeatureChild[]): FeatureChild[] {
+    const copyChildren: FeatureChild[] = []
 
     const scenariosKeptById = new Map(
       children.filter((child) => child.scenario).map((child) => [child.scenario.id, child])
@@ -167,13 +169,13 @@ export default class GherkinDocumentWalker {
     return copyChildren
   }
 
-  private walkFeatureChildren(children: readonly messages.FeatureChild[]): messages.FeatureChild[] {
-    const childrenCopy: messages.FeatureChild[] = []
+  private walkFeatureChildren(children: readonly FeatureChild[]): FeatureChild[] {
+    const childrenCopy: FeatureChild[] = []
 
     for (const child of children) {
-      let backgroundCopy: messages.Background = null
-      let scenarioCopy: messages.Scenario = null
-      let ruleCopy: messages.Rule = null
+      let backgroundCopy: Background = null
+      let scenarioCopy: Scenario = null
+      let ruleCopy: Rule = null
 
       if (child.background) {
         backgroundCopy = this.walkBackground(child.background)
@@ -197,7 +199,7 @@ export default class GherkinDocumentWalker {
     return childrenCopy
   }
 
-  protected walkRule(rule: messages.Rule): messages.Rule {
+  protected walkRule(rule: Rule): Rule {
     const children = this.walkRuleChildren(rule.children)
 
     this.handlers.handleRule(rule)
@@ -213,7 +215,7 @@ export default class GherkinDocumentWalker {
     }
   }
 
-  private copyRule(rule: messages.Rule, children: readonly messages.RuleChild[]): messages.Rule {
+  private copyRule(rule: Rule, children: readonly RuleChild[]): Rule {
     return {
       id: rule.id,
       name: rule.name,
@@ -226,10 +228,10 @@ export default class GherkinDocumentWalker {
   }
 
   private filterRuleChildren(
-    children: readonly messages.RuleChild[],
-    childrenKept: readonly messages.RuleChild[]
-  ): messages.RuleChild[] {
-    const childrenCopy: messages.RuleChild[] = []
+    children: readonly RuleChild[],
+    childrenKept: readonly RuleChild[]
+  ): RuleChild[] {
+    const childrenCopy: RuleChild[] = []
     const scenariosKeptIds = childrenKept
       .filter((child) => child.scenario)
       .map((child) => child.scenario.id)
@@ -250,8 +252,8 @@ export default class GherkinDocumentWalker {
     return childrenCopy
   }
 
-  private walkRuleChildren(children: readonly messages.RuleChild[]): messages.RuleChild[] {
-    const childrenCopy: messages.RuleChild[] = []
+  private walkRuleChildren(children: readonly RuleChild[]): RuleChild[] {
+    const childrenCopy: RuleChild[] = []
 
     for (const child of children) {
       if (child.background) {
@@ -268,7 +270,7 @@ export default class GherkinDocumentWalker {
     return childrenCopy
   }
 
-  protected walkBackground(background: messages.Background): messages.Background {
+  protected walkBackground(background: Background): Background {
     const steps = this.walkAllSteps(background.steps)
     this.handlers.handleBackground(background)
 
@@ -277,7 +279,7 @@ export default class GherkinDocumentWalker {
     }
   }
 
-  private copyBackground(background: messages.Background): messages.Background {
+  private copyBackground(background: Background): Background {
     return {
       id: background.id,
       name: background.name,
@@ -288,7 +290,7 @@ export default class GherkinDocumentWalker {
     }
   }
 
-  protected walkScenario(scenario: messages.Scenario): messages.Scenario {
+  protected walkScenario(scenario: Scenario): Scenario {
     const steps = this.walkAllSteps(scenario.steps)
     this.handlers.handleScenario(scenario)
 
@@ -297,7 +299,7 @@ export default class GherkinDocumentWalker {
     }
   }
 
-  private copyScenario(scenario: messages.Scenario): messages.Scenario {
+  private copyScenario(scenario: Scenario): Scenario {
     return {
       id: scenario.id,
       name: scenario.name,
@@ -310,11 +312,11 @@ export default class GherkinDocumentWalker {
     }
   }
 
-  protected walkAllSteps(steps: readonly messages.Step[]): messages.Step[] {
+  protected walkAllSteps(steps: readonly Step[]): Step[] {
     return steps.map((step) => this.walkStep(step))
   }
 
-  protected walkStep(step: messages.Step): messages.Step {
+  protected walkStep(step: Step): Step {
     this.handlers.handleStep(step)
     if (!this.filters.acceptStep(step)) {
       return null
@@ -322,7 +324,7 @@ export default class GherkinDocumentWalker {
     return this.copyStep(step)
   }
 
-  private copyStep(step: messages.Step): messages.Step {
+  private copyStep(step: Step): Step {
     return {
       id: step.id,
       keyword: step.keyword,

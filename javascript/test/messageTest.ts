@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import { pipeline, Writable } from 'node:stream'
 import { promisify } from 'node:util'
 import { NdjsonToMessageStream } from '@cucumber/message-streams'
-import type * as messages from '@cucumber/messages'
+import type { Envelope } from '@cucumber/messages'
 import fg from 'fast-glob'
 import { convertWindowsPathToPattern } from 'fast-glob/out/utils/path.js'
 
@@ -32,11 +32,7 @@ describe('Walking with messages', () => {
         messageStream,
         new Writable({
           objectMode: true,
-          write(
-            envelope: messages.Envelope,
-            _encoding: string,
-            callback: (error?: Error | null) => void
-          ) {
+          write(envelope: Envelope, _encoding: string, callback: (error?: Error | null) => void) {
             try {
               if (envelope.gherkinDocument) {
                 const walker = new GherkinDocumentWalker()

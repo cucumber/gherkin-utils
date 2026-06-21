@@ -4,15 +4,15 @@ import {
   type GherkinInMarkdownTokenMatcher,
   Parser,
 } from '@cucumber/gherkin'
-import * as messages from '@cucumber/messages'
+import { type GherkinDocument, IdGenerator } from '@cucumber/messages'
 
 export default function parse(
   source: string,
   tokenMatcher:
     | GherkinClassicTokenMatcher
     | GherkinInMarkdownTokenMatcher = new GherkinClassicTokenMatcher()
-): messages.GherkinDocument {
-  const newId = messages.IdGenerator.uuid()
+): GherkinDocument {
+  const newId = IdGenerator.uuid()
   const parser = new Parser(new AstBuilder(newId), tokenMatcher)
   try {
     const gherkinDocument = parser.parse(source)

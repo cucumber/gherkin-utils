@@ -1,4 +1,13 @@
-import type * as messages from '@cucumber/messages'
+import type {
+  Background,
+  Comment,
+  GherkinDocument,
+  Location,
+  Scenario,
+  Step,
+  TableRow,
+  Tag,
+} from '@cucumber/messages'
 
 import type { GherkinDocumentHandlers } from './GherkinDocumentHandlers.js'
 
@@ -11,7 +20,7 @@ import type { GherkinDocumentHandlers } from './GherkinDocumentHandlers.js'
  * @return result the final value
  */
 export function walkGherkinDocument<Acc>(
-  gherkinDocument: messages.GherkinDocument,
+  gherkinDocument: GherkinDocument,
   initialValue: Acc,
   handlers: Partial<GherkinDocumentHandlers<Acc>>
 ): Acc {
@@ -47,19 +56,19 @@ export function walkGherkinDocument<Acc>(
   acc = walkComments(popRemainingContents(), acc)
   return acc
 
-  function walkComments(comments: readonly messages.Comment[], acc: Acc): Acc {
+  function walkComments(comments: readonly Comment[], acc: Acc): Acc {
     return comments.reduce((acc, comment) => h.comment(comment, acc), acc)
   }
 
-  function walkTags(tags: readonly messages.Tag[], acc: Acc): Acc {
+  function walkTags(tags: readonly Tag[], acc: Acc): Acc {
     return tags.reduce((acc, tag) => h.tag(tag, acc), acc)
   }
 
-  function walkSteps(steps: readonly messages.Step[], acc: Acc): Acc {
+  function walkSteps(steps: readonly Step[], acc: Acc): Acc {
     return steps.reduce((acc, step) => walkStep(step, acc), acc)
   }
 
-  function walkStep(step: messages.Step, acc: Acc): Acc {
+  function walkStep(step: Step, acc: Acc): Acc {
     acc = walkComments(popCommentsUntil(step.location), acc)
     acc = h.step(step, acc)
     if (step.docString) {
@@ -72,25 +81,20 @@ export function walkGherkinDocument<Acc>(
     return acc
   }
 
-  function walkTableRows(tableRows: readonly messages.TableRow[], acc: Acc): Acc {
+  function walkTableRows(tableRows: readonly TableRow[], acc: Acc): Acc {
     return tableRows.reduce((acc, tableRow) => walkTableRow(tableRow, acc), acc)
   }
 
-  function walkTableRow(tableRow: messages.TableRow, acc: Acc): Acc {
+  function walkTableRow(tableRow: TableRow, acc: Acc): Acc {
     acc = h.tableRow(tableRow, acc)
     return tableRow.cells.reduce((acc, tableCell) => h.tableCell(tableCell, acc), acc)
   }
 
-  function walkStepContainer(
-    stepContainer: messages.Scenario | messages.Background,
-    acc: Acc
-  ): Acc {
+  function walkStepContainer(stepContainer: Scenario | Background, acc: Acc): Acc {
     acc = walkComments(popCommentsUntil(stepContainer.location), acc)
-    const scenario: messages.Scenario = 'tags' in stepContainer ? stepContainer : null
+    const scenario: Scenario = 'tags' in stepContainer ? stepContainer : null
     acc = walkTags(scenario?.tags || [], acc)
-    acc = scenario
-      ? h.scenario(scenario, acc)
-      : h.background(stepContainer as messages.Background, acc)
+    acc = scenario ? h.scenario(scenario, acc) : h.background(stepContainer as Background, acc)
     acc = walkSteps(stepContainer.steps, acc)
 
     if (scenario) {
@@ -107,7 +111,7 @@ export function walkGherkinDocument<Acc>(
     return acc
   }
 
-  function popCommentsUntil(location?: messages.Location): readonly messages.Comment[] {
+  function popCommentsUntil(location?: Location): readonly Comment[] {
     let count = 0
     for (const comment of commentsStack) {
       if (location === undefined || comment.location.line < location.line) {
@@ -119,7 +123,7 @@ export function walkGherkinDocument<Acc>(
     return commentsStack.splice(0, count)
   }
 
-  function popRemainingContents(): readonly messages.Comment[] {
+  function popRemainingContents(): readonly Comment[] {
     return commentsStack.splice(0, commentsStack.length)
   }
 }

@@ -1,11 +1,21 @@
-import type * as messages from '@cucumber/messages'
+import type {
+  Background,
+  DocString,
+  Examples,
+  Feature,
+  GherkinDocument,
+  Rule,
+  Scenario,
+  TableRow,
+  Tag,
+} from '@cucumber/messages'
 
 import { walkGherkinDocument } from './walkGherkinDocument.js'
 
 export type Syntax = 'markdown' | 'gherkin'
 
 export default function pretty(
-  gherkinDocument: messages.GherkinDocument,
+  gherkinDocument: GherkinDocument,
   syntax: Syntax = 'gherkin'
 ): string {
   let scenarioLevel = 1
@@ -80,16 +90,11 @@ function semiColumnName(name: string | null): string {
 }
 
 function prettyKeywordContainer(
-  stepContainer:
-    | messages.Feature
-    | messages.Scenario
-    | messages.Rule
-    | messages.Examples
-    | messages.Background,
+  stepContainer: Feature | Scenario | Rule | Examples | Background,
   syntax: Syntax,
   level: number
 ): string {
-  const tags: readonly messages.Tag[] = 'tags' in stepContainer ? stepContainer.tags : []
+  const tags: readonly Tag[] = 'tags' in stepContainer ? stepContainer.tags : []
   const stepCount = 'steps' in stepContainer ? stepContainer.steps.length : 0
   const description = prettyDescription(stepContainer.description, syntax)
 
@@ -115,7 +120,7 @@ function prettyDescription(description: string, syntax: Syntax): string {
   }
 }
 
-function prettyTags(tags: readonly messages.Tag[], syntax: Syntax, level: number): string {
+function prettyTags(tags: readonly Tag[], syntax: Syntax, level: number): string {
   if (tags === undefined || tags.length === 0) {
     return ''
   }
@@ -144,7 +149,7 @@ function spaces(level: number): string {
   return new Array(level + 1).join('  ')
 }
 
-function makeDocStringDelimiter(syntax: Syntax, docString: messages.DocString) {
+function makeDocStringDelimiter(syntax: Syntax, docString: DocString) {
   if (syntax === 'gherkin') {
     return docString.delimiter.substring(0, 3)
   }
@@ -165,11 +170,7 @@ function makeDocStringDelimiter(syntax: Syntax, docString: messages.DocString) {
   return new Array(maxContentBackTickCount + 2).join('`')
 }
 
-function prettyTableRows(
-  tableRows: readonly messages.TableRow[],
-  syntax: Syntax,
-  level: number
-): string {
+function prettyTableRows(tableRows: readonly TableRow[], syntax: Syntax, level: number): string {
   if (tableRows.length === 0) {
     return ''
   }
@@ -185,7 +186,7 @@ function prettyTableRows(
   for (const row of tableRows) {
     s += prettyTableRow(row, level, maxWidths, syntax)
     if (n === 0 && syntax === 'markdown') {
-      const separatorRow: messages.TableRow = {
+      const separatorRow: TableRow = {
         location: row.location,
         id: `${row.id}-separator`,
         cells: row.cells.map((cell, j) => ({
@@ -201,7 +202,7 @@ function prettyTableRows(
 }
 
 function prettyTableRow(
-  row: messages.TableRow,
+  row: TableRow,
   level: number,
   maxWidths: readonly number[],
   syntax: Syntax

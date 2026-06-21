@@ -2,7 +2,7 @@ import assert from 'node:assert'
 import { pipeline, type Readable, Writable } from 'node:stream'
 import { promisify } from 'node:util'
 import { GherkinStreams } from '@cucumber/gherkin-streams'
-import * as messages from '@cucumber/messages'
+import { type Envelope, IdGenerator, SourceMediaType } from '@cucumber/messages'
 
 import Query from '../src/Query.js'
 
@@ -10,7 +10,7 @@ const pipelinePromise = promisify(pipeline)
 
 describe('Query', () => {
   let gherkinQuery: Query
-  let envelopes: messages.Envelope[]
+  let envelopes: Envelope[]
   beforeEach(() => {
     envelopes = []
     gherkinQuery = new Query()
@@ -200,11 +200,7 @@ describe('Query', () => {
   function parse(gherkinSource: string): Promise<void> {
     const writable = new Writable({
       objectMode: true,
-      write(
-        envelope: messages.Envelope,
-        _encoding: string,
-        callback: (error?: Error | null) => void
-      ): void {
+      write(envelope: Envelope, _encoding: string, callback: (error?: Error | null) => void): void {
         envelopes.push(envelope)
         try {
           gherkinQuery.update(envelope)
@@ -218,15 +214,15 @@ describe('Query', () => {
   }
 
   function gherkinMessages(gherkinSource: string, uri: string): Readable {
-    const source: messages.Envelope = {
+    const source: Envelope = {
       source: {
         uri,
         data: gherkinSource,
-        mediaType: messages.SourceMediaType.TEXT_X_CUCUMBER_GHERKIN_PLAIN,
+        mediaType: SourceMediaType.TEXT_X_CUCUMBER_GHERKIN_PLAIN,
       },
     }
 
-    const newId = messages.IdGenerator.incrementing()
+    const newId = IdGenerator.incrementing()
     return GherkinStreams.fromSources([source], { newId })
   }
 })
