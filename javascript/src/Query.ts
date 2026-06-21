@@ -1,69 +1,81 @@
-import type * as messages from '@cucumber/messages'
+import type {
+  Background,
+  Envelope,
+  Examples,
+  Feature,
+  GherkinDocument,
+  Location,
+  Pickle,
+  Rule,
+  Scenario,
+  Source,
+  Step,
+} from '@cucumber/messages'
 import { ArrayMultimap } from '@teppeis/multimaps'
 
 export default class Query {
-  private readonly sources: messages.Source[] = []
-  private readonly sourceByUri = new Map<string, messages.Source>()
-  private readonly gherkinDocuments: messages.GherkinDocument[] = []
-  private readonly pickles: messages.Pickle[] = []
-  private readonly locationByAstNodeId = new Map<string, messages.Location>()
-  private readonly gherkinStepByAstNodeId = new Map<string, messages.Step>()
+  private readonly sources: Source[] = []
+  private readonly sourceByUri = new Map<string, Source>()
+  private readonly gherkinDocuments: GherkinDocument[] = []
+  private readonly pickles: Pickle[] = []
+  private readonly locationByAstNodeId = new Map<string, Location>()
+  private readonly gherkinStepByAstNodeId = new Map<string, Step>()
   private readonly pickleIdsMapByUri = new Map<string, ArrayMultimap<string, string>>()
   private readonly pickleIdsByAstNodeId = new Map<string, string[]>()
   private readonly pickleStepIdsByAstNodeId = new Map<string, string[]>()
   // AST nodes
-  private readonly featureByUriLine = new Map<string, messages.Feature>()
-  private readonly backgroundByUriLine = new Map<string, messages.Background>()
-  private readonly ruleByUriLine = new Map<string, messages.Rule>()
-  private readonly scenarioByUriLine = new Map<string, messages.Scenario>()
-  private readonly examplesByUriLine = new Map<string, messages.Examples>()
-  private readonly stepByUriLine = new Map<string, messages.Step>()
+  private readonly featureByUriLine = new Map<string, Feature>()
+  private readonly backgroundByUriLine = new Map<string, Background>()
+  private readonly ruleByUriLine = new Map<string, Rule>()
+  private readonly scenarioByUriLine = new Map<string, Scenario>()
+  private readonly examplesByUriLine = new Map<string, Examples>()
+  private readonly stepByUriLine = new Map<string, Step>()
 
   /**
    * Gets the location (line and column) of an AST node.
    * @param astNodeId
    */
-  public getLocation(astNodeId: string): messages.Location {
+  public getLocation(astNodeId: string): Location {
     return this.locationByAstNodeId.get(astNodeId)
   }
 
-  public getSources(): readonly messages.Source[] {
+  public getSources(): readonly Source[] {
     return this.sources
   }
 
-  public getGherkinDocuments(): readonly messages.GherkinDocument[] {
+  public getGherkinDocuments(): readonly GherkinDocument[] {
     return this.gherkinDocuments
   }
 
-  public getPickles(): readonly messages.Pickle[] {
+  public getPickles(): readonly Pickle[] {
     return this.pickles
   }
 
-  public getSource(uri: string): messages.Source | undefined {
+  public getSource(uri: string): Source | undefined {
     return this.sourceByUri.get(uri)
   }
 
-  public getFeature(uri: string, line: number): messages.Feature | undefined {
+  public getFeature(uri: string, line: number): Feature | undefined {
     return getAstNode(this.featureByUriLine, uri, line)
   }
 
-  public getBackground(uri: string, line: number): messages.Background | undefined {
+  public getBackground(uri: string, line: number): Background | undefined {
     return getAstNode(this.backgroundByUriLine, uri, line)
   }
 
-  public getRule(uri: string, line: number): messages.Rule | undefined {
+  public getRule(uri: string, line: number): Rule | undefined {
     return getAstNode(this.ruleByUriLine, uri, line)
   }
 
-  public getScenario(uri: string, line: number): messages.Scenario | undefined {
+  public getScenario(uri: string, line: number): Scenario | undefined {
     return getAstNode(this.scenarioByUriLine, uri, line)
   }
 
-  public getExamples(uri: string, line: number): messages.Examples | undefined {
+  public getExamples(uri: string, line: number): Examples | undefined {
     return getAstNode(this.examplesByUriLine, uri, line)
   }
 
-  public getStep(uri: string, line: number): messages.Step | undefined {
+  public getStep(uri: string, line: number): Step | undefined {
     return getAstNode(this.stepByUriLine, uri, line)
   }
 
@@ -86,7 +98,7 @@ export default class Query {
     return this.pickleStepIdsByAstNodeId.get(astNodeId) || []
   }
 
-  public update(message: messages.Envelope): Query {
+  public update(message: Envelope): Query {
     if (message.source) {
       this.sources.push(message.source)
       this.sourceByUri.set(message.source.uri, message.source)
@@ -108,7 +120,7 @@ export default class Query {
     return this
   }
 
-  private updateGherkinFeature(uri: string, feature: messages.Feature) {
+  private updateGherkinFeature(uri: string, feature: Feature) {
     setAstNode(this.featureByUriLine, uri, feature)
     this.pickleIdsMapByUri.set(uri, new ArrayMultimap<string, string>())
 
@@ -127,14 +139,14 @@ export default class Query {
     }
   }
 
-  private updateGherkinBackground(uri: string, background: messages.Background) {
+  private updateGherkinBackground(uri: string, background: Background) {
     setAstNode(this.backgroundByUriLine, uri, background)
     for (const step of background.steps) {
       this.updateGherkinStep(uri, step)
     }
   }
 
-  private updateGherkinRule(uri: string, rule: messages.Rule) {
+  private updateGherkinRule(uri: string, rule: Rule) {
     setAstNode(this.ruleByUriLine, uri, rule)
     for (const ruleChild of rule.children) {
       if (ruleChild.background) {
@@ -147,7 +159,7 @@ export default class Query {
     }
   }
 
-  private updateGherkinScenario(uri: string, scenario: messages.Scenario) {
+  private updateGherkinScenario(uri: string, scenario: Scenario) {
     setAstNode(this.scenarioByUriLine, uri, scenario)
     this.locationByAstNodeId.set(scenario.id, scenario.location)
     for (const step of scenario.steps) {
@@ -159,20 +171,20 @@ export default class Query {
     }
   }
 
-  private updateGherkinExamples(uri: string, examples: messages.Examples) {
+  private updateGherkinExamples(uri: string, examples: Examples) {
     setAstNode(this.examplesByUriLine, uri, examples)
     for (const tableRow of examples.tableBody || []) {
       this.locationByAstNodeId.set(tableRow.id, tableRow.location)
     }
   }
 
-  private updateGherkinStep(uri: string, step: messages.Step) {
+  private updateGherkinStep(uri: string, step: Step) {
     setAstNode(this.stepByUriLine, uri, step)
     this.locationByAstNodeId.set(step.id, step.location)
     this.gherkinStepByAstNodeId.set(step.id, step)
   }
 
-  private updatePickle(pickle: messages.Pickle) {
+  private updatePickle(pickle: Pickle) {
     const pickleIdsByLineNumber = this.pickleIdsMapByUri.get(pickle.uri)
 
     for (const astNodeId of pickle.astNodeIds) {
@@ -189,7 +201,7 @@ export default class Query {
     }
   }
 
-  private updatePickleSteps(pickle: messages.Pickle) {
+  private updatePickleSteps(pickle: Pickle) {
     const pickleSteps = pickle.steps
     for (const pickleStep of pickleSteps) {
       for (const astNodeId of pickleStep.astNodeIds) {
@@ -203,7 +215,7 @@ export default class Query {
 }
 
 type HasLocation = {
-  location: messages.Location
+  location: Location
 }
 
 function setAstNode<AstNode extends HasLocation>(

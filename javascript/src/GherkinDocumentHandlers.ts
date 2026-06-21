@@ -1,16 +1,29 @@
-import type * as messages from '@cucumber/messages'
+import type {
+  Background,
+  Comment,
+  DataTable,
+  DocString,
+  Examples,
+  Feature,
+  Rule,
+  Scenario,
+  Step,
+  TableCell,
+  TableRow,
+  Tag,
+} from '@cucumber/messages'
 
 export type GherkinDocumentHandlers<Acc> = {
-  feature: (feature: messages.Feature, acc: Acc) => Acc
-  background: (background: messages.Background, acc: Acc) => Acc
-  rule: (rule: messages.Rule, acc: Acc) => Acc
-  scenario: (scenario: messages.Scenario, acc: Acc) => Acc
-  step: (step: messages.Step, acc: Acc) => Acc
-  examples: (examples: messages.Examples, acc: Acc) => Acc
-  tag: (tag: messages.Tag, acc: Acc) => Acc
-  comment: (comment: messages.Comment, acc: Acc) => Acc
-  dataTable: (dataTable: messages.DataTable, acc: Acc) => Acc
-  tableRow: (tableRow: messages.TableRow, acc: Acc) => Acc
-  tableCell: (tableCell: messages.TableCell, acc: Acc) => Acc
-  docString: (docString: messages.DocString, acc: Acc) => Acc
+  feature: (feature: Feature, acc: Acc) => Acc
+  background: (background: Background, acc: Acc) => Acc
+  rule: (rule: Rule, acc: Acc) => Acc
+  scenario: (scenario: Scenario, acc: Acc) => Acc
+  step: (step: Step, acc: Acc) => Acc
+  examples: (examples: Examples, acc: Acc) => Acc
+  tag: (tag: Tag, acc: Acc) => Acc
+  comment: (comment: Comment, acc: Acc) => Acc
+  dataTable: (dataTable: DataTable, acc: Acc) => Acc
+  tableRow: (tableRow: TableRow, acc: Acc) => Acc
+  tableCell: (tableCell: TableCell, acc: Acc) => Acc
+  docString: (docString: DocString, acc: Acc) => Acc
 }

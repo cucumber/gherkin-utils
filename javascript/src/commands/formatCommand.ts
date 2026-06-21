@@ -8,7 +8,7 @@ import {
   GherkinInMarkdownTokenMatcher,
   Parser,
 } from '@cucumber/gherkin'
-import * as messages from '@cucumber/messages'
+import { IdGenerator } from '@cucumber/messages'
 
 import pretty, { type Syntax } from '../pretty.js'
 
@@ -87,7 +87,7 @@ function parse(source: string, syntax: Syntax, language: string) {
     throw new Error('No syntax')
   }
   const fromParser = new Parser(
-    new AstBuilder(messages.IdGenerator.uuid()),
+    new AstBuilder(IdGenerator.uuid()),
     syntax === 'gherkin'
       ? new GherkinClassicTokenMatcher(language)
       : new GherkinInMarkdownTokenMatcher(language)

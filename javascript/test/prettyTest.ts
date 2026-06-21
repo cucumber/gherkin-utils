@@ -2,7 +2,7 @@ import assert from 'node:assert'
 import fs from 'node:fs'
 import path from 'node:path'
 import { GherkinClassicTokenMatcher, GherkinInMarkdownTokenMatcher } from '@cucumber/gherkin'
-import type * as messages from '@cucumber/messages'
+import type { GherkinDocument } from '@cucumber/messages'
 import fg from 'fast-glob'
 
 import pretty, { escapeCell } from '../src/pretty.js'
@@ -306,10 +306,7 @@ function checkGherkinToAstToMarkdownToAstToGherkin(gherkinSource: string) {
   assert.strictEqual(newGherkinSource, gherkinSource)
 }
 
-function checkGherkinToAstToGherkin(
-  gherkinSource: string,
-  language = 'en'
-): messages.GherkinDocument {
+function checkGherkinToAstToGherkin(gherkinSource: string, language = 'en'): GherkinDocument {
   const gherkinDocument = parse(gherkinSource, new GherkinClassicTokenMatcher(language))
   const newGherkinSource = pretty(gherkinDocument, 'gherkin')
   // console.log(`<Gherkin>${newGherkinSource}</Gherkin>`)
@@ -317,7 +314,7 @@ function checkGherkinToAstToGherkin(
   return gherkinDocument
 }
 
-function neutralize(gherkinDocument: messages.GherkinDocument): messages.GherkinDocument {
+function neutralize(gherkinDocument: GherkinDocument): GherkinDocument {
   const json = JSON.stringify(
     gherkinDocument,
     (key, value) => {
