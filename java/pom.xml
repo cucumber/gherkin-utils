@@ -22,9 +22,9 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git://github.com/cucumber/gherkin-utils.git</connection>
+        <connection>scm:git:https://github.com/cucumber/gherkin-utils.git</connection>
         <developerConnection>scm:git:git@github.com:cucumber/gherkin-utils.git</developerConnection>
-        <url>git://github.com/cucumber/gherkin-utils.git</url>
+        <url>https://github.com/cucumber/gherkin-utils.git</url>
         <tag>HEAD</tag>
     </scm>
 
