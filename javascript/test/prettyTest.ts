@@ -103,10 +103,12 @@ Feature: hello
     Given a a <text> and a <number>
 
     Examples: some data
-      | text | number |
-      | a    |      1 |
-      | ab   |     10 |
-      | abc  |    100 |
+      | text | number | hybrid |
+      |      |        |        |
+      | a    |      1 | 2abc   |
+      | ab   |     10 | 20bc   |
+      | abc  |    100 | 200c   |
+      | abcd |  100.1 | 200c   |
 `)
   })
 
@@ -115,10 +117,12 @@ Feature: hello
 
   Scenario: one
     Given a data table:
-      | text | numbers |
-      | a    |       1 |
-      | ab   |      10 |
-      | abc  |     100 |
+      | text | numbers | hybrid |
+      |      |         |        |
+      | a    |       1 | 2abc   |
+      | ab   |      10 | 20bc   |
+      | abc  |     100 | 200c   |
+      | abcd |   100.1 | 200c   |
 `)
   })
 
@@ -127,10 +131,12 @@ Feature: hello
 
   Scenario: one
     Given a data table:
-      | 路     | numbers |
-      | 路     |       1 |
-      | 路步   |      10 |
-      | 路步路 |     100 |
+      | 路     | numbers | hybrid |
+      |        |         |        |
+      | 路     |       1 | 2abc   |
+      | 路步   |      10 | 20bc   |
+      | 路步路 |     100 | 200c   |
+      | 路步路 |   100.1 | 200c   |
 `)
   })
 
