@@ -1,0 +1,3 @@
+startGherkinDocument
+ handleGherkinDocument
+finishGherkinDocument

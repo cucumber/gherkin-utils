@@ -1,0 +1,40 @@
+name: test-testdata
+
+permissions: {}
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - testdata/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - testdata/**
+
+jobs:
+  test-testdata:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        cache: 'npm'
+        cache-dependency-path: testdata/compatibility-kit/package-lock.json
+
+    - run: npm ci
+      working-directory: testdata/compatibility-kit
+
+    - name: check repository is not dirty
+      run: "[[ -z $(git status --porcelain) ]]"
+
+    - name: show diff
+      if: ${{ failure() }}
+      run: git status --porcelain
