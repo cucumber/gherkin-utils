@@ -1,0 +1,30 @@
+startGherkinDocument
+ handleGherkinDocument
+ startFeature
+  startLanguage
+   handleLanguage
+  finishLanguage
+  handleFeature
+  startDescription
+   handleDescription
+  finishDescription
+  startScenario
+   handleScenario
+   startStep
+    handleStep
+   finishStep
+   startExamples
+    handleExamples
+    startExamplesTableRow
+     handleExamplesTableRow
+    finishExamplesTableRow
+    startExamplesTableRow
+     handleExamplesTableRow
+    finishExamplesTableRow
+    startExamplesTableRow
+     handleExamplesTableRow
+    finishExamplesTableRow
+   finishExamples
+  finishScenario
+ finishFeature
+finishGherkinDocument
