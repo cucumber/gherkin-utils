@@ -29,9 +29,9 @@ import static io.cucumber.gherkin.utils.GherkinDocumentUtil.groupByBlock;
  * {@code handle*}, and {@code finish*} methods of the {@link Handler} are
  * called as the walker traverses the document.
  *
- * <p>Tags are treated on a per-line basis,
- * {@link Handler#handleTags(Object, List)} is called for each set of tags on
- * the same line.
+ * <p>Tags are treated on a block by block basis. A block is a set of
+ * continuous tag lines, {@link Handler#handleTags(Object, List)} is called
+ * is invoked once for each block.
  *
  * <p>Comments lines are treated on a block by block basis. A block is a set
  * of continues comment lines, {@link Handler#handleComments(Object, List)}
